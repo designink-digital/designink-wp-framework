@@ -16,19 +16,19 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress
+ * @package   Designink/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC.
+ * @copyright Copyright (c) 2008-2020, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\v1_0_0\Plugin\Post;
+namespace Designink\WordPress\Framework\v1_0_1\Plugin\Post;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\v1_0_0\Plugin\Meta;
+use Designink\WordPress\Framework\v1_0_1\Plugin\Meta;
 
-if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Post\Post_Meta', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Post\Post_Meta', false ) ) {
 
 	/**
 	 * An abstract for dealing with Post Meta.
@@ -47,7 +47,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Post\Post_Meta', false 
 
 			// If no Post given.
 			if ( empty( $post ) ) {
-				trigger_error( __( "Specified post passed to Designink\WordPress\v1_0_0\Posts\Post_Meta constructor was empty." ), E_USER_WARNING );
+				trigger_error( __( "Specified post passed to Designink\WordPress\Framework\v1_0_1\Posts\Post_Meta constructor was empty." ), E_USER_WARNING );
 				return;
 			}
 
@@ -56,7 +56,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Post\Post_Meta', false 
 				$Post = get_post( $post );
 
 				if ( empty( $Post ) ) {
-					trigger_error( __( "Could not find Post specified by ID passed Designink\WordPress\v1_0_0\Posts\Post_Meta constructor." ), E_USER_WARNING );
+					trigger_error( __( "Could not find Post specified by ID passed Designink\WordPress\Framework\v1_0_1\Posts\Post_Meta constructor." ), E_USER_WARNING );
 					return;
 				}
 

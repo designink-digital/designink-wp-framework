@@ -1,10 +1,10 @@
 {
 	"author": "DesignInk Digital",
 	"description": "DesignInk Digital's internal framework for facilitating WordPress development.",
-	"homepage": "https://designdigitalsolutions.com/",
+	"homepage": "https://designinkdigital.com/",
 	"license": "GPL-3.0",
 	"name": "packagist-testing",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/"

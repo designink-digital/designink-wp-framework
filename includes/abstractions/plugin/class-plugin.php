@@ -16,20 +16,20 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress
+ * @package   Designink/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC.
+ * @copyright Copyright (c) 2008-2020, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\v1_0_0;
+namespace Designink\WordPress\Framework\v1_0_1;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\v1_0_0\Framework;
-use Designink\WordPress\v1_0_0\Plugin\Module;
+use Designink\WordPress\Framework\v1_0_1\Framework;
+use Designink\WordPress\Framework\v1_0_1\Module;
 
-if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin', false ) ) {
 
 	/**
 	 * A class to represent and help deal with common plugin functionality.
@@ -38,7 +38,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin', false ) ) {
 	 */
 	abstract class Plugin extends Module {
 
-		/** @var \Designink\WordPress\v1_0_0\Plugin\Admin_Module The admin module, if loaded. */
+		/** @var \Designink\WordPress\Framework\v1_0_1\Plugin\Admin_Module The admin module, if loaded. */
 		protected $admin_module;
 
 		/** @var string The default directory for loading templates. */
@@ -53,7 +53,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin', false ) ) {
 		/**
 		 * Get the Admin Module.
 		 * 
-		 * @return null|\Designink\WordPress\v1_0_0\Plugin\Admin_Module The Admin Module.
+		 * @return null|\Designink\WordPress\Framework\v1_0_1\Plugin\Admin_Module The Admin Module.
 		 */
 		final public function get_admin_module() { return $this->admin_module; }
 
@@ -73,7 +73,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin', false ) ) {
 			register_activation_hook( $file, array( $class, 'activate' ) );
 			register_deactivation_hook( $file, array( $class, 'deactivate' ) );
 
-			// If this instance directly inherits \Designink\WordPress\v1_0_0\Plugin.
+			// If this instance directly inherits \Designink\WordPress\Framework\v1_0_1\Plugin.
 			if ( __CLASS__ === $parent_class ) {
 				Framework::instance()->register_plugin( $this );
 				$this->maybe_init_admin();
@@ -121,14 +121,21 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin', false ) ) {
 		/**
 		 * Enqueue a script from the assets folder.
 		 * 
-		 * @param string $script The script file name (including extension).
-		 * @param array $reqs The required Javascript files by reference.
+		 * @param string $script			The script file name (including extension).
+		 * @param array $reqs				The required Javascript files by reference.
+		 * @param array $locatization_data	Any localization data to pass to the script.
 		 */
-		final public function enqueue_js( string $script, array $reqs = array() ) {
+		final public function enqueue_js( string $script, array $reqs = array(), array $locatization_data = array() ) {
 			$plugin_class_info = $this->get_class_reflection();
 			$scripts_directory_url = plugins_url( 'assets/js', $plugin_class_info->getFileName() );
 			$script_slug = Utility::slugify( $script );
-			wp_enqueue_script( $script_slug, sprintf( '%s/%s', $scripts_directory_url, $script ), $reqs );
+			wp_enqueue_script( $script_slug, sprintf( '%s/%s.js', $scripts_directory_url, $script ), $reqs );
+
+			if ( ! empty( $locatization_data ) ) {
+				foreach ( $locatization_data as $key => $data ) {
+					wp_localize_script( $script_slug, $key, $data );
+				}
+			}
 		}
 
 		/**
@@ -141,11 +148,11 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin', false ) ) {
 			$plugin_class_info = $this->get_class_reflection();
 			$styles_directory_url = plugins_url( 'assets/css', $plugin_class_info->getFileName() );
 			$style_slug = Utility::slugify( $style );
-			wp_enqueue_style( $style_slug, sprintf( '%s/%s', $styles_directory_url, $style ), $reqs );
+			wp_enqueue_style( $style_slug, sprintf( '%s/%s.css', $styles_directory_url, $style ), $reqs );
 		}
 
 		/**
-		 * Look for the admin module and load it. It was decided the admin module should stay in \Designink\WordPress\v1_0_0\Plugin and not belong in \Designink\WordPress\v1_0_0\Plugin\Module
+		 * Look for the admin module and load it. It was decided the admin module should stay in \Designink\WordPress\Framework\v1_0_1\Plugin and not belong in \Designink\WordPress\Framework\v1_0_1\Module
 		 * because it may be cleaner to isolate all of the admin code to one area so we don't have to look for admin functionality in admin and non-admin modules. Admin extensions
 		 * should then only be available to root plugins.
 		 */
@@ -157,7 +164,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin', false ) ) {
 				require_once ( $file_path );
 				$admin_module_name = sprintf( '%s_Admin', $reflection->getName() );
 
-				if ( class_exists( $admin_module_name, false ) && is_subclass_of( $admin_module_name, 'Designink\WordPress\v1_0_0\Plugin\Admin_Module' ) ) {
+				if ( class_exists( $admin_module_name, false ) && is_subclass_of( $admin_module_name, 'Designink\WordPress\Framework\v1_0_1\Plugin\Admin_Module' ) ) {
 					$Admin_Module = $admin_module_name::submodule_instance();
 					$this->admin_module = $Admin_Module;
 					$admin_module_info = new \ReflectionClass( $Admin_Module );
@@ -166,7 +173,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin', false ) ) {
 					$message = sprintf( "Could not find admin module, %s.", $admin_module_name );
 					trigger_error( __( $message ), E_USER_WARNING );
 				} else {
-					$message = sprintf( "Found admin module class, %s, but it may not be correctly extending Designink\WordPress\v1_0_0\Plugin\Admin_Module", $admin_module_name );
+					$message = sprintf( "Found admin module class, %s, but it may not be correctly extending Designink\WordPress\Framework\v1_0_1\Plugin\Admin_Module", $admin_module_name );
 					trigger_error( __( $message ), E_USER_WARNING );
 				}
 
@@ -174,7 +181,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin', false ) ) {
 		}
 
 		/**
-		 * Search for \Designink\WordPress\v1_0_0\Post_Type classes in the Plugin { static::$post_types_dir } and register them.
+		 * Search for \Designink\WordPress\Framework\v1_0_1\Post_Type classes in the Plugin { static::$post_types_dir } and register them.
 		 */
 		final private function register_available_post_types() {
 			$reflection = $this->get_class_reflection();
@@ -188,7 +195,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin', false ) ) {
 						require_once ( $post_types_dir . $file );
 						$module_name = Utility::pascal_underscorify( $matches[1] );
 
-						if ( class_exists( $module_name ) && is_subclass_of( $module_name, 'Designink\WordPress\v1_0_0\Plugin\Post_Type' ) ) {
+						if ( class_exists( $module_name ) && is_subclass_of( $module_name, 'Designink\WordPress\Framework\v1_0_1\Plugin\Post_Type' ) ) {
 							$Module = $module_name::instance();
 							$Module_Reflection = new \ReflectionClass( $Module );
 							$this->loaded_post_types[  $Module_Reflection->getShortName() ] = $Module;

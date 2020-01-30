@@ -16,21 +16,21 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress
+ * @package   Designink/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC.
+ * @copyright Copyright (c) 2008-2020, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\v1_0_0\Plugin;
+namespace Designink\WordPress\Framework\v1_0_1\Plugin;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\v1_0_0\Utility;
-use Designink\WordPress\v1_0_0\Singleton;
-use Designink\WordPress\v1_0_0\Plugin\Admin\Meta_Box;
+use Designink\WordPress\Framework\v1_0_1\Utility;
+use Designink\WordPress\Framework\v1_0_1\Singleton;
+use Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Meta_Box;
 
-if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Post_Type', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Post_Type', false ) ) {
 
 	/**
 	 * In this class, we attempt to define and encapsulate the functionalities of a single "Post Type" in WordPress.
@@ -183,7 +183,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Post_Type', false ) ) {
 		/**
 		 * Add a Meta Box to this Post Type if it is not already added.
 		 * 
-		 * @param \Designink\WordPress\v1_0_0\Plugin\Admin\Meta_Box
+		 * @param \Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Meta_Box
 		 */
 		final public function add_meta_box( Meta_Box $Meta_Box ) {
 			if ( ! array_key_exists( $Meta_Box->get_id(), $this->Meta_Boxes ) ) {
@@ -194,7 +194,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Post_Type', false ) ) {
 		/**
 		 * 
 		 * 
-		 * @param \Designink\WordPress\v1_0_0\Plugin\Admin\Meta_Box
+		 * @param \Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Meta_Box
 		 */
 		final public function register_meta_boxes() {
 			foreach ( $this->Meta_Boxes as $Meta_Box ) {

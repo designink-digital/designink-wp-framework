@@ -22,39 +22,32 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_1;
+namespace Designink\WordPress\Framework\v1_0_1\Plugin\Admin;
 
 defined( 'ABSPATH' ) or exit;
 
 use Designink\WordPress\Framework\v1_0_1\Module;
-use Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Form_Builder;
-use Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Cron_Manager;
-use Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Interval_Timer;
+use Designink\WordPress\Framework\v1_0_1\Admin\Admin_Notice_Queue;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Admin_Notice_Module', false ) ) {
 
 	/**
-	 * A class to manage the DesignInk custom Action Scheduler solution for WordPress.
+	 * This module holds the logic for saving our admin notices as transients and displaying them on an admin page load.
 	 */
-	final class Action_Scheduler extends Module {
+	final class Admin_Notice_Module extends Module {
 
 		/**
-		 * Entry point.
+		 * Module entry point.
 		 */
-		public static function construct() {
-			self::register_timer_forms();
-
-			add_filter( 'cron_schedules', array( Cron_Manager::class, '_cron_schedules' ) );
-			add_action( Cron_Manager::WP_CRON_SCHEDULE_HOOK, array( Cron_Manager::class, '_ds_action_scheduler_update_hook' ) );
-
-			Cron_Manager::check_cron_timer();
+		final public static function construct() {
+			add_action( 'admin_notices', array( get_class(), '_admin_notices' ) );
 		}
 
 		/**
-		 * Register the different types of timers with the Form Builder so it can print their forms.
+		 * WordPress 'admin_notices' hook.
 		 */
-		final private static function register_timer_forms() {
-			Form_Builder::add_timer_class( Interval_Timer::class );
+		final public static function _admin_notices() {
+			Admin_Notice_Queue::print_notices();
 		}
 
 	}

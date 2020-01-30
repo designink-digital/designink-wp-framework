@@ -16,17 +16,17 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress
+ * @package   Designink/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC.
+ * @copyright Copyright (c) 2008-2020, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\v1_0_0\Plugin\Admin;
+namespace Designink\WordPress\Framework\v1_0_1\Plugin\Admin;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Admin\Screens', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Screens', false ) ) {
 
 	/**
 	 * An extension to the Admin Module that manages code related to particular admin screens, and what code should be run in global or local context.

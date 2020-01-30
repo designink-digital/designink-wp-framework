@@ -16,20 +16,20 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress
+ * @package   Designink/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC.
+ * @copyright Copyright (c) 2008-2020, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\v1_0_0\Action_Scheduler;
+namespace Designink\WordPress\Framework\v1_0_1\Action_Scheduler;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\v1_0_0\Utility;
+use Designink\WordPress\Framework\v1_0_1\Utility;
 use Designink_Framework_Shadow_Plugin;
 
-if ( ! class_exists( '\Designink\WordPress\v1_0_0\Action_Scheduler\Interval_Timer', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Interval_Timer', false ) ) {
 
 	/**
 	 * A Timer instance that bases it's run times off of even intervals from a specified start times. It can also return how many missed intervals a Timer may potentially have.
@@ -91,9 +91,9 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Action_Scheduler\Interval_Time
 				$message_format = "The provided time has an incorrect format. mm:hh expected, recieved: %s.";
 				trigger_error( __( sprintf( $message_format, $options['start']['time'] ) ), E_USER_WARNING );
 				return;
-			} else if( ! $inteval_correct ) {
+			} else if ( ! $inteval_correct ) {
 				$message_format = "The provided interval is incorrect. (%s) expected, recieved: %s.";
-				trigger_error( __( sprintf( $message_format, implode( ',', array_keys( self::$interval_types ) ), $options['interval'] ) ), E_USER_WARNING);
+				trigger_error( __( sprintf( $message_format, implode( ',', array_keys( self::$interval_types ) ), $options['interval'] ) ), E_USER_WARNING );
 				return;
 			}
 

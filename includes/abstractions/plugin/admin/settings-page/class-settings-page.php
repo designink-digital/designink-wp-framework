@@ -16,21 +16,21 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress
+ * @package   Designink/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC.
+ * @copyright Copyright (c) 2008-2020, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\v1_0_0\Plugin\Admin;
+namespace Designink\WordPress\Framework\v1_0_1\Plugin\Admin;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\v1_0_0\Singleton;
-use Designink\WordPress\v1_0_0\Plugin\Admin\Settings_Page\Settings_Section;
-use Designink\WordPress\v1_0_0\Plugin\Admin\Settings_Page\Settings_Page_Interface;
+use Designink\WordPress\Framework\v1_0_1\Singleton;
+use Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page\Settings_Section;
+use Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page\Settings_Page_Interface;
 
-if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Admin\Settings_Page', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page', false ) ) {
 
 	/**
 	 * A class to abstract and automate the process of building settings pages.
@@ -41,13 +41,13 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Admin\Settings_Page', f
 
 		//// - Variables - ////
 
-		/** @var \Designink\WordPress\v1_0_0\Plugin\Admin\Settings_Page\Settings_Section[] The list of Sections attached to this Page. */
+		/** @var \Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page\Settings_Section[] The list of Sections attached to this Page. */
 		private $Sections = array();
 
 		/**
 		 * Return the Sections associated with this Page.
 		 * 
-		 * @return \Designink\WordPress\v1_0_0\Plugin\Admin\Settings_Page\Settings_Section[] The Sections of this Page.
+		 * @return \Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page\Settings_Section[] The Sections of this Page.
 		 */
 		final public static function get_sections() { return $this->Sections; }
 
@@ -95,7 +95,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Admin\Settings_Page', f
 		/**
 		 * Register a section with this Page.
 		 * 
-		 * @param \Designink\WordPress\v1_0_0\Plugin\Admin\Settings_Page\Settings_Section $Settings_Section The Section to add to this Page.
+		 * @param \Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page\Settings_Section $Settings_Section The Section to add to this Page.
 		 */
 		final public function add_section( Settings_Section $Settings_Section ) {
 			$this->Sections[] = $Settings_Section;

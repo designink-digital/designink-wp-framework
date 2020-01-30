@@ -16,24 +16,22 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress
+ * @package   Designink/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC.
+ * @copyright Copyright (c) 2008-2020, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\v1_0_0\Plugin;
+namespace Designink\WordPress\Framework\v1_0_1\Plugin;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\v1_0_0\Plugin\Post\Post_Meta;
+use Designink\WordPress\Framework\v1_0_1\Plugin\Post\Post_Meta;
 
-if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Post', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Post', false ) ) {
 
 	/**
 	 * A class to represent and help deal with common custom post type functionality.
-	 * 
-	 * @since 3.0.0
 	 */
 	abstract class Post {
 
@@ -60,12 +58,15 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Post', false ) ) {
 		 * 
 		 * @param string $meta_key The meta key of the Meta to return.
 		 *
-		 * @return null|\Designink\WordPress\v1_0_0\Plugin\Post\Post_Meta The Post meta if found or NULL.
+		 * @return null|\Designink\WordPress\Framework\v1_0_1\Plugin\Post\Post_Meta The Post meta if found or NULL.
 		 */
 		final public function get_meta( string $meta_key = '' ) {
+
 			if ( 1 === count( $this->Meta ) && empty( $meta_key ) ) {
 				// Return the only Meta if there's only one and the $meta_key is empty.
 				return $this->Meta[ array_keys( $this->Meta )[0] ];
+			} else if ( empty( $meta_key ) ) {
+				return $this->Meta;
 			} else if ( array_key_exists( $meta_key, $this->Meta ) ) {
 				// Or try to find and return the Meta
 				return $this->Meta[ $meta_key ];
@@ -119,7 +120,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Post', false ) ) {
 		/**
 		 * Add a Post Meta to this Post.
 		 * 
-		 * @param \Designink\WordPress\v1_0_0\Plugin\Post\Post_Meta
+		 * @param \Designink\WordPress\Framework\v1_0_1\Plugin\Post\Post_Meta
 		 */
 		final protected function add_meta( Post_Meta $Meta ) {
 			if ( ! array_key_exists( $Meta->meta_key(), $this->Meta ) ) {

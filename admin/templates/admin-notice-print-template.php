@@ -22,42 +22,30 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page;
-
 defined( 'ABSPATH' ) or exit;
 
-if ( ! interface_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page\Settings_Page_Interface', false ) ) {
+?>
 
-	interface Settings_Page_Interface {
+<div class="notice notice-<?php echo $Notice->type ?> is-dismissible">
+	<?php // Optional notice heading ?>
+	<?php if ( ! empty( $Notice->options['header'] ) ) : ?>
+		<h3><?php _e( $Notice->options['header'] ); ?></h3>
+	<?php endif; ?>
 
-		/**
-		 * The page slug for registering settings, adding menu items, etc.
-		 * 
-		 * @return string The page slug.
-		 */
-		public static function page_option_group();
+	<?php // Notice message ?>
+	<p><?php _e( $Notice->message ); ?></p>
 
-		/**
-		 * The page name/title for display.
-		 * 
-		 * @return string The page title.
-		 */
-		public static function page_title();
+	<?php // Optional status code ?>
+	<?php if ( ! empty( $Notice->options['status_code'] ) ) : ?>
+		<div>
+			<sub>Status code: <?php echo $Notice->options['status_code']; ?></sub>
+		</div>
+	<?php endif; ?>
 
-		/**
-		 * The menu name/title for display.
-		 * 
-		 * @return string The menu title.
-		 */
-		public static function menu_title();
-
-		/**
-		 * The capability required for the page to be displayed to the user.
-		 * 
-		 * @return string The capability required to display the settings page.
-		 */
-		public static function page_capability();
-
-	}
-
-}
+	<?php // Optional notice hint ?>
+	<?php if ( ! empty( $Notice->options['hint'] ) ) : ?>
+		<div>
+			<sup>Hint: <?php _e( $Notice->options['hint'] ); ?></sup>
+		</div>
+	<?php endif; ?>
+</div>

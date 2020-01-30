@@ -16,17 +16,17 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress
+ * @package   Designink/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC.
+ * @copyright Copyright (c) 2008-2020, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\v1_0_0;
+namespace Designink\WordPress\Framework\v1_0_1;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\Designink\WordPress\v1_0_0\Utility', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Utility', false ) ) {
 
 	/**
 	 * Utility functions class to hold useful chunks of code we find ourselves often reusing.
@@ -61,7 +61,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Utility', false ) ) {
 				$current_value = '';
 
 				if ( 'object' === gettype( $instance ) ) {
-					$current_value = $instance->{$property};
+					$current_value = $instance->{ $property };
 				} else if ( is_array( $instance ) ) {
 					$current_value = $instance [ $property ];
 				}
@@ -122,7 +122,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Utility', false ) ) {
 		 * 
 		 * @return array The representational associative array of the initial objects' properties.
 		 */
-		final public static function object_to_assoc_array( object $instance ) {
+		final public static function object_to_assoc_array( \stdClass $instance ) {
 			return json_decode( json_encode( $instance ), true );
 		}
 
@@ -158,7 +158,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Utility', false ) ) {
 						}
 					}
 				} else {
-					trigger_error( __( sprintf( "Only arrays should be passed to \Designink\WordPress\v1_0_0\Utility::guided_array_merge(). %s given." ), gettype( $array ) ), E_USER_WARNING );
+					trigger_error( __( sprintf( "Only arrays should be passed to \Designink\WordPress\Framework\v1_0_1\Utility::guided_array_merge(). %s given." ), gettype( $array ) ), E_USER_WARNING );
 					return false;
 				}
 
@@ -201,7 +201,9 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Utility', false ) ) {
 		 * @param bool $die Whether to kill the script after printing debug.
 		 */
 		final public static function print_debug( $subject, bool $die = true ) {
-			echo sprintf( '<pre class="ds-print-debug">%s</pre>', @print_r( $subject, true ) );
+			$debug_info = debug_backtrace()[0];
+			$debug = sprintf( "<!-- %s: Line %s -->", basename( $debug_info['file'] ), $debug_info['line'] );
+			printf( '<pre class="ds-print-debug">%s%s</pre>', $debug, @print_r( $subject, true ) );
 			if ( $die ) { die(); }
 		}
 
@@ -219,7 +221,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Utility', false ) ) {
 		final public static function scandir( string $dir, string $type = 'both' ) {
 
 			if ( ! is_dir( $dir ) ) {
-				$message = sprintf( "The path provided to Designink\WordPress\v1_0_0\Utility::scandir is not a valid directory. Recieved (%s)", $dir );
+				$message = sprintf( "The path provided to Designink\WordPress\Framework\v1_0_1\Utility::scandir is not a valid directory. Recieved (%s)", $dir );
 				trigger_error( __( $message ) ); 
 				return array();
 			}

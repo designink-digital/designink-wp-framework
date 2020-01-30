@@ -16,20 +16,20 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress
+ * @package   Designink/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC.
+ * @copyright Copyright (c) 2008-2020, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\v1_0_0\Plugin\Admin\Settings_Page;
+namespace Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\v1_0_0\Utility;
-use Designink\WordPress\v1_0_0\Plugin\Admin\Settings_Page\Settings_Section;
+use Designink\WordPress\Framework\v1_0_1\Utility;
+use Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page\Settings_Section;
 
-if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Admin\Settings_Page\Settings_Field', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page\Settings_Field', false ) ) {
 
 	/**
 	 * A class to automate the process of creating a Settings Field under a Settings Section.
@@ -38,7 +38,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Admin\Settings_Page\Set
 	 */
 	final class Settings_Field {
 
-		/** @var \Designink\WordPress\v1_0_0\Plugin\Admin\Settings_Page\Settings_Section The parent Settings Section. */
+		/** @var \Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page\Settings_Section The parent Settings Section. */
 		protected $Settings_Section;
 
 		/** @var string The identifier key to use when the Settings Field has multiple values. */
@@ -64,7 +64,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Admin\Settings_Page\Set
 		/**
 		 * Construct the Settings Field.
 		 * 
-		 * @param \Designink\WordPress\v1_0_0\Plugin\Admin\Settings_Page\Settings_Section $Settings_Section The parent Settings Section.
+		 * @param \Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page\Settings_Section $Settings_Section The parent Settings Section.
 		 * @param array $args The settings passed to this Settings Field.
 		 */
 		public function __construct( Settings_Section $Settings_Section, array $args ) {
@@ -74,7 +74,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Admin\Settings_Page\Set
 			$section_has_multiple_fields = count( $Settings_Section->inputs ) > 1 ? true : false;
 
 			if ( ! $input_key_set && $section_has_multiple_fields ) {
-				$message_format = "A \Designink\WordPress\v1_0_0\Plugin\Admin\Settings_Page\Settings_Field instance was created without a key, but the parent Section has more than one Field.";
+				$message_format = "A \Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page\Settings_Field instance was created without a key, but the parent Section has more than one Field.";
 				trigger_error( $message_format, E_USER_WARNING );
 			}
 

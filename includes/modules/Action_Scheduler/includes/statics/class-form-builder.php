@@ -16,20 +16,20 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress
+ * @package   Designink/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC.
+ * @copyright Copyright (c) 2008-2020, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\v1_0_0\Action_Scheduler;
+namespace Designink\WordPress\Framework\v1_0_1\Action_Scheduler;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\v1_0_0\Utility;
-use Designink\WordPress\v1_0_0\Action_Scheduler\Timer;
+use Designink\WordPress\Framework\v1_0_1\Utility;
+use Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Timer;
 
-if ( ! class_exists( '\Designink\WordPress\v1_0_0\Action_Scheduler\Form_Builder', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Form_Builder', false ) ) {
 
 	/**
 	 * A class to automate the creation of timers through form submissions.
@@ -116,7 +116,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Action_Scheduler\Form_Builder'
 		 * @param string $id The unique string identifier you want to have attached to your timer.
 		 * @param array $option The Timer options passed to the Timer on creation, these values will be overwritten by any corresponding form submission options.
 		 * 
-		 * @return null|\Designink\WordPress\v1_0_0\Action_Scheduler\Timer The newly created/updated Timer instance.
+		 * @return null|\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Timer The newly created/updated Timer instance.
 		 */
 		final public static function generate_timer_from_form( string $group, string $id, array $options ) {
 

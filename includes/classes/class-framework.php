@@ -16,20 +16,20 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress
+ * @package   Designink/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC.
+ * @copyright Copyright (c) 2008-2020, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\v1_0_0;
+namespace Designink\WordPress\Framework\v1_0_1;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\v1_0_0\Plugin;
-use Designink\WordPress\v1_0_0\Autoloader;
+use Designink\WordPress\Framework\v1_0_1\Plugin;
+use Designink\WordPress\Framework\v1_0_1\Autoloader;
 
-if ( ! class_exists( '\Designink\WordPress\v1_0_0\Framework', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Framework', false ) ) {
 
 	/**
 	 * The wrappper class for a proprietary set of code which seeks to facilitate WordPress development and encourage use of the documented coding standards.
@@ -40,10 +40,10 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Framework', false ) ) {
 		/**
 		 * @var string VERSION constant for compatibility.
 		 */
-		const VERSION = '1.0.0';
+		const VERSION = '1.0.1';
 
 		/**
-		 * @var \Designink\WordPress\v1_0_0\Autoloader Class autoloader instance.
+		 * @var \Designink\WordPress\Framework\v1_0_1\Autoloader Class autoloader instance.
 		 */
 		protected $autoloader;
 
@@ -67,9 +67,9 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Framework', false ) ) {
 		}
 
 		/**
-		 * Return the Designink\WordPress\v1_0_0\Autoloader instance.
+		 * Return the Designink\WordPress\Framework\v1_0_1\Autoloader instance.
 		 * 
-		 * @return \Designink\WordPress\v1_0_0\Autoloader The instance.
+		 * @return \Designink\WordPress\Framework\v1_0_1\Autoloader The instance.
 		 */
 		final public function get_autoloader() {
 			return $this->autoloader;
@@ -78,7 +78,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Framework', false ) ) {
 		/**
 		 * Add a plugin instance to the list of registered plugins.
 		 * 
-		 * @param \Designink\WordPress\v1_0_0\Plugin $plugin The plugin to register.
+		 * @param \Designink\WordPress\Framework\v1_0_1\Plugin $plugin The plugin to register.
 		 */
 		final public function register_plugin( Plugin $Plugin ) {
 			$class_name = $Plugin->get_class_reflection()->getName();

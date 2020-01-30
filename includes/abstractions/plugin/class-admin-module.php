@@ -16,20 +16,20 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress
+ * @package   Designink/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC.
+ * @copyright Copyright (c) 2008-2020, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\v1_0_0\Plugin;
+namespace Designink\WordPress\Framework\v1_0_1\Plugin;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\v1_0_0\Plugin;
-use Designink\WordPress\v1_0_0\Utility;
+use Designink\WordPress\Framework\v1_0_1\Plugin;
+use Designink\WordPress\Framework\v1_0_1\Utility;
 
-if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Admin_Module', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Admin_Module', false ) ) {
 
 	/**
 	 * A class to represent and help deal with common plugin admin functionality.
@@ -59,7 +59,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Admin_Module', false ) 
 		}
 
 		/**
-		 * Search for \Designink\WordPress\v1_0_0\Post_Type classes in the Plugin { static::$post_types_dir } and register them.
+		 * Search for \Designink\WordPress\Framework\v1_0_1\Post_Type classes in the Plugin { static::$post_types_dir } and register them.
 		 */
 		final private function register_available_screens() {
 			$reflection = $this->get_class_reflection();
@@ -73,7 +73,7 @@ if ( ! class_exists( '\Designink\WordPress\v1_0_0\Plugin\Admin_Module', false ) 
 						require_once ( $screens_dir . $file );
 						$screen_name = Utility::pascal_underscorify( $matches[1] );
 
-						if ( class_exists( $screen_name ) && is_subclass_of( $screen_name, 'Designink\WordPress\v1_0_0\Plugin\Admin\Screens' ) ) {
+						if ( class_exists( $screen_name ) && is_subclass_of( $screen_name, 'Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Screens' ) ) {
 							$screen_name::construct();
 							$this->loaded_screens[] = $screen_name;
 						}
