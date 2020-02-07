@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl-3.0.html
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to answers@designdigitalsolutions.com so we can send you a copy immediately.
+ * to answers@designinkdigital.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
@@ -22,16 +22,18 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_1;
+namespace Designink\WordPress\Framework\v1_0_2;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_1\Module;
-use Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Form_Builder;
-use Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Cron_Manager;
-use Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Interval_Timer;
+use Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Cron_Manager;
+use Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Form_Builder;
+use Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Interval_Timer;
+use Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Simple_Timer;
+use Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Timer_Manager;
+use Designink\WordPress\Framework\v1_0_2\Module;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Action_Scheduler', false ) ) {
 
 	/**
 	 * A class to manage the DesignInk custom Action Scheduler solution for WordPress.
@@ -45,7 +47,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler', f
 			self::register_timer_forms();
 
 			add_filter( 'cron_schedules', array( Cron_Manager::class, '_cron_schedules' ) );
-			add_action( Cron_Manager::WP_CRON_SCHEDULE_HOOK, array( Cron_Manager::class, '_ds_action_scheduler_update_hook' ) );
+			add_action( Cron_Manager::WP_CRON_SCHEDULE_HOOK, array( Cron_Manager::class, '_di_action_scheduler_update_hook' ) );
 
 			Cron_Manager::check_cron_timer();
 		}
@@ -54,6 +56,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler', f
 		 * Register the different types of timers with the Form Builder so it can print their forms.
 		 */
 		final private static function register_timer_forms() {
+			Form_Builder::add_timer_class( Simple_Timer::class );
 			Form_Builder::add_timer_class( Interval_Timer::class );
 		}
 

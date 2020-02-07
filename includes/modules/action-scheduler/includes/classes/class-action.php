@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl-3.0.html
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to answers@designdigitalsolutions.com so we can send you a copy immediately.
+ * to answers@designinkdigital.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
@@ -22,13 +22,13 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_1\Action_Scheduler;
+namespace Designink\WordPress\Framework\v1_0_2\Action_Scheduler;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_1\Utility;
+use Designink\WordPress\Framework\v1_0_2\Utility;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Action', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Action', false ) ) {
 
 	/**
 	 * A class to represent a callable Action assigned to a Timer and all of it's properties.
@@ -55,15 +55,13 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Act
 		public function __construct( string $action_id, array $action ) {
 
 			if ( empty( $action_id ) ) {
-				$message = _( "Tried to create a Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Action without an ID." );
-				trigger_error( $message, E_USER_WARNING );
-				return;
+				$message = sprintf( "Tried to create a %s without an ID.", self::class );
+				throw new \Exception( __( $message ) );
 			}
 
 			if ( ! isset( $action['action'] ) || ! is_callable( $action['action'] ) ) {
-				$message = _( "Tried to create a Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Action without an valid, callable action." );
-				trigger_error( $message, E_USER_WARNING );
-				return;
+				$message = sprintf( "Tried to create a %s without an valid, callable action.", self::class );
+				throw new \Exception( __( $message ) );
 			}
 
 			$action = Utility::guided_array_merge( self::$default_arguments, $action );

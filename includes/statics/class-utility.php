@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl-3.0.html
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to answers@designdigitalsolutions.com so we can send you a copy immediately.
+ * to answers@designinkdigital.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
@@ -22,11 +22,13 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_1;
+namespace Designink\WordPress\Framework\v1_0_2;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Utility', false ) ) {
+use Designink\WordPress\Framework\v1_0_2\Framework;
+
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Utility', false ) ) {
 
 	/**
 	 * Utility functions class to hold useful chunks of code we find ourselves often reusing.
@@ -158,8 +160,8 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Utility', false ) ) 
 						}
 					}
 				} else {
-					trigger_error( __( sprintf( "Only arrays should be passed to \Designink\WordPress\Framework\v1_0_1\Utility::guided_array_merge(). %s given." ), gettype( $array ) ), E_USER_WARNING );
-					return false;
+					$message = sprintf( "Only arrays should be passed to %s. %s given.", __METHOD__, gettype( $array ) );
+					throw new \Exception( __( $message ) );
 				}
 
 			}
@@ -221,8 +223,8 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Utility', false ) ) 
 		final public static function scandir( string $dir, string $type = 'both' ) {
 
 			if ( ! is_dir( $dir ) ) {
-				$message = sprintf( "The path provided to Designink\WordPress\Framework\v1_0_1\Utility::scandir is not a valid directory. Recieved (%s)", $dir );
-				trigger_error( __( $message ) ); 
+				$message = sprintf( "The path provided to %s is not a valid directory. Recieved (%s)", __METHOD__, $dir );
+				Utility::doing_it_wrong( __METHOD__, $message );
 				return array();
 			}
 
@@ -278,6 +280,18 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Utility', false ) ) 
 			}
 
 			$files = array_values( $files );
+		}
+
+		/**
+		 * Our own, non-private version of _doing_it_wrong(), credit to https://wordpress.stackexchange.com/questions/238672/what-is-an-alternative-method-to-the-wordpress-private-doing-it-wrong-functio
+		 * 
+		 * @param string $method	The function or method currently executing.
+		 * @param string $message	The error message to display.
+		 */
+		final public static function doing_it_wrong( string $method, string $message ) {
+			if ( WP_DEBUG && apply_filters( 'doing_it_wrong_trigger_error', true ) ) {
+				trigger_error( sprintf( '<pre>An error occurred in %1$s. <br /> %2$s <br /> Framework Version: %3$s</pre>', $method, $message, Framework::VERSION ), E_USER_WARNING );
+			}
 		}
 
 	}

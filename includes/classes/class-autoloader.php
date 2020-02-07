@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl-3.0.html
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to answers@designdigitalsolutions.com so we can send you a copy immediately.
+ * to answers@designinkdigital.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
@@ -22,13 +22,13 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_1;
+namespace Designink\WordPress\Framework\v1_0_2;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_1\Utility;
+use Designink\WordPress\Framework\v1_0_2\Utility;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Autoloader', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Autoloader', false ) ) {
 
 	// Require Singleton abstract first thing since the Autoloader extends it and it won't be autoloaded!
 	require_once ( __DIR__ . '/../abstractions/class-singleton.php' );
@@ -49,7 +49,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Autoloader', false )
 		final protected function __construct() {
 
 			// Check if Utility is loaded sincle this class requires it, but it also does the autoloading \o/.
-			if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Utility', false ) ) {
+			if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Utility', false ) ) {
 				$utility_path = __DIR__ . '/../statics/class-utility.php';
 				require_once ( $utility_path );
 			}

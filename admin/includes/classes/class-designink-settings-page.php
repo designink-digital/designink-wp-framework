@@ -1,6 +1,6 @@
 <?php
 /**
- * DesignInk Utilities Plugin
+ * DesignInk WordPress Framework
  *
  * This source file is subject to the GNU General Public License v3.0
  * that is bundled with this package in the file license.txt.
@@ -16,18 +16,19 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
+ * @package   Designink/WordPress/Framework
  * @author    DesignInk Digital
  * @copyright Copyright (c) 2008-2020, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page;
+namespace Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page\Options_Settings_Page;
+use Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Options_Settings_Page;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page\Designink_Settings_Page', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Designink_Settings_Page', false ) ) {
 
 	/**
 	 * The options page configuration for general settings regarding the modules included in this plugin.
@@ -47,10 +48,12 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Setting
 		final public static function page_capability() { return 'manage_options'; }
 
 		/**
-		 * Construct the parent model.
+		 * Construct the parent model. Make sure to call after global $submenu is defined.
 		 */
 		final public function __construct() {
-			parent::__construct();
+			if ( ! self::menu_item_exists() ) {
+				parent::__construct();
+			}
 		}
 
 	}

@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl-3.0.html
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to answers@designdigitalsolutions.com so we can send you a copy immediately.
+ * to answers@designinkdigital.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
@@ -22,35 +22,34 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_1\Action_Scheduler;
+namespace Designink\WordPress\Framework\v1_0_2\Action_Scheduler;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_1\Utility;
-use Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Action;
+use Designink\WordPress\Framework\v1_0_2\Utility;
+use Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Action;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Timer', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Timer', false ) ) {
 
 	/**
 	 * A Timer template for the Action Scheduler system that other timer classes can extend and implement their own settings for.
 	 */
 	abstract class Timer {
 
-		/**
-		 * The exportable properties.
-		 * 
-	 	 * @var string	$id				The unique timer string ID.
-		 * @var int		$last_run		The timestamp for when the Timer last ran its Actions.
-		 * @var array	$timer_class	The name of the Timer super-class that this instance refers to.
-		 */
-		public $id, $last_run, $timer_class;
+		/** @var string $id The unique timer string ID. */
+		public $id;
+
+		/** @var int The timestamp for when the Timer last ran its Actions. */
+		public $last_run;
+
+		/** @var array The type ID name of the Timer super-class that this instance refers to. */
+		public $timer_type;
 
 		/** @var array The default arguments for this class. Should match the exportable properties. */
 		private static $default_arguments = array(
-			'actions_data'	=> array(),
 			'id'			=> null,
 			'last_run'		=> null,
-			'timer_class'	=> null,
+			'timer_type'	=> null,
 		);
 
 		/** @var Action[] $Actions The instantiated list of actions to fire for this timer. */
@@ -74,6 +73,20 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Tim
 		abstract public function get_next_run();
 
 		/**
+		 * Abstract function for holding a printable timer name for the Form Builder.
+		 * 
+		 * @return string The formal name of the Timer.
+		 */
+		abstract public static function timer_label();
+
+		/**
+		 * Abstract function that returns a slug which represents the timer class, this way timers can be reinstantiated from the database across Framework versions.
+		 * 
+		 * @return string A slug that represents the timer class.
+		 */
+		abstract public static function timer_type_id();
+
+		/**
 		 * Abstract function to cover the exporting of properties of super classes in { $this->to_array() }
 		 * 
 		 * @return array The exportable properties and values of the super class.
@@ -81,9 +94,14 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Tim
 		abstract protected function export_array();
 
 		/**
+		 * Abstract function to print a table of the Timer's useful information.
+		 */
+		abstract public function print_info();
+
+		/**
 		 * Get the last run time. Returns in GMT.
 		 * 
-		 * @return \DateTime The last run time.
+		 * @return null|\DateTime The last run time.
 		 */
 		final public function get_last_run() {
 
@@ -103,11 +121,17 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Tim
 		 */
 		public function __construct( string $timer_id, array $options ) {
 
-			$options = Utility::guided_array_merge( self::$default_arguments, $options );
+			$options = Utility::guided_array_merge(
+				self::$default_arguments,
+				$options,
+				array(
+					'timer_type' => static::timer_type_id()
+				)
+			);
 
 			if ( empty( $timer_id ) ) {
-				trigger_error( __( "A valid id must be passed to Designink\\Action_Scheduler\\Timer constructor." ), E_USER_WARNING );
-				return false;
+				$message = sprintf( "A valid id must be passed to the %s constructor.", static::class );
+				throw new \Exception( __( $message ) );
 			}
 
 			foreach ( $options as $property => $value ) {
@@ -138,7 +162,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Tim
 		 */
 		final public function maybe_run_timer() {
 			$next = $this->get_next_run();
-			$run = $next->getTimestamp() < time();
+			$run = $next->getTimestamp() <= time();
 
 			if ( $run ) {
 				$this->run();
@@ -160,7 +184,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Tim
 		/**
 		 * Add an Action to the Timer instance, optionally update the Action and { $this->action_data } if it already exists.
 		 * 
-		 * @param \Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Action $Action The Action to try and add.
+		 * @param \Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Action $Action The Action to try and add.
 		 * @param bool $update Whether or not to replace the Action if it already exists by ID (default FALSE)
 		 * 
 		 * @return bool Whether or not the action was added.
@@ -180,7 +204,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Tim
 		 * 
 		 * @param string $action_id The ID of the Action to look for.
 		 * 
-		 * @return null|\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Action The Action instance or NULL.
+		 * @return null|\Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Action The Action instance or NULL.
 		 */
 		final public function get_action( string $action_id ) {
 			if ( $this->Actions[ $action_id ] ) {
@@ -202,7 +226,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Tim
 		}
 
 		/**
-		 * A wrapper function for \Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Timer_Manager::update_timer().
+		 * A wrapper function for \Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Timer_Manager::update_timer().
 		 * 
 		 * @param bool $merge Whether or not to merge existing Actions if the Timer already exists.
 		 * 
@@ -225,7 +249,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Tim
 		/**
 		 * Merge Actions from another Timer instance into this instance.
 		 * 
-		 * @param \Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Timer $Timer The Timer instance to merge Actions from.
+		 * @param \Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Timer $Timer The Timer instance to merge Actions from.
 		 */
 		final public function merge_actions( Timer $Timer ) {
 			foreach ( $Timer->get_actions() as $Action ) {
@@ -260,26 +284,41 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Tim
 		 * 
 		 * @param string $timer_id The ID of the Timer.
 		 * 
-		 * @return null|\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Timer The timer that was instantiated or FALSE.
+		 * @return null|\Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Timer The timer that was instantiated or FALSE.
 		 */
 		final public static function instantiate_timer( string $timer_id, array $timer_options ) {
 
-			if ( ! isset( $timer_options['timer_class'] ) ) {
-				$message = "Tried to instantiate a Timer super class without providing the 'timer_class' property.";
-				trigger_error( __( $message ), E_USER_WARNING );
-				return null;
-			} else if ( ! class_exists( $timer_options['timer_class'] ) ) {
-				$message_format = "Tried to instantiate a Timer super class using a class that could not be found. Tried to instantiate: %s";
-				trigger_error( __( sprintf( $message_format, $timer_options['timer_class'] ) ), E_USER_WARNING );
-				return null;
-			} else if ( ! is_a( $timer_options['timer_class'], __CLASS__, true ) ) {
-				$message_format = "Tried to instantiate a Timer super class using a class that does not inherit Timer. Provided class: %s";
-				trigger_error( __( sprintf( $message_format, $timer_options['timer_class'] ) ), E_USER_WARNING );
-				return null;
+			if ( ! isset( $timer_options['timer_type'] ) ) {
+				$message = "Tried to instantiate a Timer super class without providing the 'timer_type' property.";
+				throw new \Exception( __( $message ) );
 			}
 
-			$Timer_Class = $timer_options['timer_class'];
-			return new $Timer_Class( $timer_id, $timer_options );
+			$timer_class = self::timer_class_from_type( $timer_options['timer_type'] );
+
+			if ( '' === $timer_class ) {
+				$message = sprintf( "Tried to instantiate a Timer super class using a class that could not be found. Tried to instantiate Timer by ID: %s", $timer_options['timer_type'] );
+				throw new \Exception( __( $message ) );
+			}
+
+			return new $timer_class( $timer_id, $timer_options );
+		}
+
+		/**
+		 * Map Timer types to class names, that way Timer data can be used by all Framework versions.
+		 * 
+		 * @param string $type The timer type to find a class name for.
+		 * 
+		 * @return string The classs name of the Timer type, or an empty string if not found.
+		 */
+		final private static function timer_class_from_type( string $type ) {
+			switch( $type ) {
+				case 'interval-timer':
+					return Interval_Timer::class;
+				case 'simple-timer':
+					return Simple_Timer::class;
+				default:
+					return '';
+			}
 		}
 
 	}

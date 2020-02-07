@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl-3.0.html
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to answers@designdigitalsolutions.com so we can send you a copy immediately.
+ * to answers@designinkdigital.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
@@ -22,14 +22,16 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_1\Action_Scheduler;
+namespace Designink\WordPress\Framework\v1_0_2\Action_Scheduler;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_1\Utility;
-use Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Timer;
+use Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Timer;
+use Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Simple_Timer;
+use Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Interval_Timer;
+use Designink\WordPress\Framework\v1_0_2\Designink_Framework_Shadow_Plugin;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Form_Builder', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Form_Builder', false ) ) {
 
 	/**
 	 * A class to automate the creation of timers through form submissions.
@@ -37,16 +39,33 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\For
 	final class Form_Builder {
 
 		/** @var string The name of the form. This is used for input names. */
-		const FORM_BASE_NAME = 'ds_action_scheduler';
+		const FORM_BASE_NAME = 'di_action_scheduler';
 
 		/** @var string The nonce that gets created with each form. */
-		const FORM_NONCE_NAME = 'ds_action_scheduler_form_builder_nonce';
+		const FORM_NONCE_NAME = 'di_action_scheduler_form_builder_nonce';
 
 		/** @var string The nonce action. */
-		const FORM_NONCE_ACTION = 'ds_action_scheduler_form_builder_update';
+		const FORM_NONCE_ACTION = 'di_action_scheduler_form_builder_update';
 
 		/** @var string[] A list of timer instances to have forms for. */
 		private static $timer_classes = array();
+
+		/**
+		 * Return the registered Timer classes.
+		 * 
+		 * @return string[] The Timer classes registered.
+		 */
+		final public static function get_timer_classes() {
+			return self::$timer_classes;
+		}
+		
+		/**
+		 * Enqueue the scripts and styles for the form builder.
+		 */
+		final public static function enqueue_form_builder_scripts() {
+			Designink_Framework_Shadow_Plugin::instance()->enqueue_css( 'action-scheduler-form-builder' );
+			Designink_Framework_Shadow_Plugin::instance()->enqueue_js( 'action-scheduler-form-builder' );
+		}
 
 		/**
 		 * Register a Timer with the Form Builder.
@@ -72,26 +91,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\For
 		 * @param string $group What name to categorize this form under.
 		 */
 		final public static function print_form( string $group ) {
-			$now = new \DateTime( 'now', new \DateTimeZone( 'GMT' ) );
-			?>
-
-			<?php wp_nonce_field( self::FORM_NONCE_ACTION, self::FORM_NONCE_NAME ); ?>
-
-			<h3>Timer Builder Template</h3>
-			<p>The current GMT time is: <strong><?php echo $now->format( 'Y-m-d H:i' ); ?></strong></p>
-			<div>Tabs will go here</div>
-			<hr />
-
-			<?php foreach ( self::$timer_classes as $timer_class ) : $class_slug = Utility::slugify( Utility::class_basename( $timer_class ) ); ?>
-				<div id="form-instance-<?php echo $class_slug; ?>">
-					<?php $timer_class::print_form( $group ); ?>
-				</div>
-			<?php endforeach; ?>
-
-			<input type="hidden" name="<?php echo Form_Builder::generate_form_input_name( $group, 'timer_type' ); ?>" value="<?php echo $timer_class; ?>" />
-			<hr />
-
-			<?php
+			Designink_Framework_Shadow_Plugin::instance()->get_template( 'timer-form-builder-base', array( 'group' => $group ) );
 		}
 
 		/**
@@ -116,25 +116,27 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\For
 		 * @param string $id The unique string identifier you want to have attached to your timer.
 		 * @param array $option The Timer options passed to the Timer on creation, these values will be overwritten by any corresponding form submission options.
 		 * 
-		 * @return null|\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Timer The newly created/updated Timer instance.
+		 * @return null|\WP_Error|\Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Timer The newly created/updated Timer instance.
 		 */
 		final public static function generate_timer_from_form( string $group, string $id, array $options ) {
-
+			$Timer = null;
 			$timer_type_set = isset( $_POST[ self::FORM_BASE_NAME ][ $group ]['timer_type'] );
 
 			if ( $timer_type_set ) {
 				$form = $_POST[ self::FORM_BASE_NAME ][ $group ];
-				$timer_class = str_replace( '\\\\', '\\', $form['timer_type'] );
+				$options = array_merge( $options, $form );
 
-				if ( class_exists( $timer_class, false ) ) {
-					$options = array_merge( $options, $form );
-					// Create new Timer instance
-					$Timer = new $timer_class( $id, $options );
-					return $Timer;
+				// Create new Timer instance
+				try {
+					$Timer = Timer::instantiate_timer( $id, $options );
+				} catch ( \Exception $e ) {
+					$message = sprintf( "An error occured while creating a Timer instance: %s", $e->getMessage() );
+					return new \WP_Error( 'timer', __( $message ) );
 				}
+
 			}
 
-			return null;
+			return $Timer;
 		}
 
 		/**

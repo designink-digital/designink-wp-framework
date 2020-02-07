@@ -1,6 +1,6 @@
 <?php
 /**
- * DesignInk Utilities Plugin
+ * DesignInk WordPress Framework
  *
  * This source file is subject to the GNU General Public License v3.0
  * that is bundled with this package in the file license.txt.
@@ -16,37 +16,46 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
+ * @package   Designink/WordPress/Framework
  * @author    DesignInk Digital
  * @copyright Copyright (c) 2008-2020, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page;
+namespace Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_1\Module;
+use Designink\WordPress\Framework\v1_0_2\Module;
+use Designink\WordPress\Framework\v1_0_2\Utility;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page\Designink_Settings_Page_Module', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Designink_Settings_Page_Module', false ) ) {
 
 	/**
 	 * Manage the settings for for this plugin.
 	 */
 	final class Designink_Settings_Page_Module extends Module {
 
-		/** @var \Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page $Settings_Page The Settings Page instance. */
+		/** @var \Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page $Settings_Page The Settings Page instance. */
 		public static $Settings_Page;
 
 		/**
 		 * Add WordPress hooks, set Settings Page instance.
 		 */
 		final public static function construct() {
-			self::$Settings_Page = new Designink_Settings_Page();
 			add_action( 'admin_init', array( __CLASS__, '_admin_init' ), 11 );
+			add_action( 'admin_menu', array( __CLASS__, '_admin_menu' ) );
 		}
 
 		/**
-		 * WordPress 'admin_init' hook
+		 * WordPress 'admin_menu' hook.
+		 */
+		final public static function _admin_menu() {
+			self::$Settings_Page = new Designink_Settings_Page();
+		}
+
+		/**
+		 * WordPress 'admin_init' hook.
 		 */
 		final public static function _admin_init() {
 			if ( ! self::settings_sections_registered() ) {

@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl-3.0.html
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to answers@designdigitalsolutions.com so we can send you a copy immediately.
+ * to answers@designinkdigital.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
@@ -22,14 +22,16 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_1\Action_Scheduler;
+namespace Designink\WordPress\Framework\v1_0_2\Action_Scheduler;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_1\Utility;
-use Designink_Framework_Shadow_Plugin;
+use Designink\WordPress\Framework\v1_0_2\Utility;
+use Designink\WordPress\Framework\v1_0_2\Designink_Framework_Shadow_Plugin;
+use Exception;
+use ParseError;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Interval_Timer', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Interval_Timer', false ) ) {
 
 	/**
 	 * A Timer instance that bases it's run times off of even intervals from a specified start times. It can also return how many missed intervals a Timer may potentially have.
@@ -69,6 +71,20 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Int
 		final public static function get_interval_types() { return self::$interval_types; }
 
 		/**
+		 * Get the Timer name.
+		 * 
+		 * @return array The Timer name.
+		 */
+		final public static function timer_label() { return 'Interval Timer'; }
+
+		/**
+		 * Get the Timer type ID.
+		 * 
+		 * @return array The Timer type ID.
+		 */
+		final public static function timer_type_id() { return 'interval-timer'; }
+
+		/**
 		 * Construct the Interval Timer.
 		 * 
 		 * @param string $timer_id The ID to reference the Timer by.
@@ -81,19 +97,27 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Int
 			$inteval_correct = in_array( $options['interval'], array_keys( self::$interval_types ) );
 			$date_empty = empty( $options['date'] );
 			$date_formatted = preg_match( $date_regex, $options['start']['date'] );
-			$time_formatted = preg_match( $time_regex, $options['start']['time'] );
 
 			if ( ! $date_empty && ! $date_formatted ) {
-				$message_format = "The provided date has an incorrect format. yyyy-mm-dd expected, recieved: %s.";
-				trigger_error( __( sprintf( $message_format, $options['start']['date'] ) ), E_USER_WARNING );
-				return;
-			} else if ( ! $time_formatted ) {
-				$message_format = "The provided time has an incorrect format. mm:hh expected, recieved: %s.";
-				trigger_error( __( sprintf( $message_format, $options['start']['time'] ) ), E_USER_WARNING );
+				$message_format = __( "The provided date has an incorrect format. yyyy-mm-dd expected, recieved: %s." );
+				throw new \Exception( sprintf( $message_format, $options['start']['date'] ) );
 				return;
 			} else if ( ! $inteval_correct ) {
-				$message_format = "The provided interval is incorrect. (%s) expected, recieved: %s.";
-				trigger_error( __( sprintf( $message_format, implode( ',', array_keys( self::$interval_types ) ), $options['interval'] ) ), E_USER_WARNING );
+				$message_format = __( "The provided interval is incorrect. (%s) expected, recieved: %s." );
+				throw new \Exception( sprintf( $message_format, implode( ',', array_keys( self::$interval_types ) ), $options['interval'] ) );
+				return;
+			}
+
+			$time_empty = empty( $options['start']['time'] );
+			$time_formatted = preg_match( $time_regex, $options['start']['time'] );
+
+			if ( $time_empty ) {
+				$message_format = __( "An initial start time is required to create an interval timer." );
+				throw new \Exception( sprintf( $message_format, $options['start']['time'] ) );
+				return;
+			} else if ( ! $time_formatted ) {
+				$message_format = __( "The provided time has an incorrect format. mm:hh expected, recieved: %s." );
+				throw new \Exception( sprintf( $message_format, $options['start']['time'] ) );
 				return;
 			}
 
@@ -220,6 +244,13 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Int
 			}
 
 			return $timer_export;
+		}
+
+		/**
+		 * The inherited abstract for printing Timer info.
+		 */
+		final public function print_info() {
+			Designink_Framework_Shadow_Plugin::instance()->get_template( 'interval-timer-print-info', array( 'Timer' => $this ) );
 		}
 
 	}

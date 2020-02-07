@@ -22,42 +22,26 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page;
+namespace Designink\WordPress\Framework\v1_0_2\Action_Scheduler;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! interface_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Settings_Page_Interface', false ) ) {
+use Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Form_Builder;
+use Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Simple_Timer;
 
-	interface Settings_Page_Interface {
+?>
 
-		/**
-		 * The page slug for registering settings, adding menu items, etc.
-		 * 
-		 * @return string The page slug.
-		 */
-		public static function page_option_group();
+<div class="timer-options">
+	<label>
+		Interval:
+		<input type="number" min="0" max="99" pattern="([0-9]{2})" name="<?php echo Form_Builder::generate_form_input_name( $group, 'multiplier' ); ?>" value="1" required />
+	</label>
 
-		/**
-		 * The page name/title for display.
-		 * 
-		 * @return string The page title.
-		 */
-		public static function page_title();
+	<select name="<?php echo Form_Builder::generate_form_input_name( $group, 'interval' ); ?>">
 
-		/**
-		 * The menu name/title for display.
-		 * 
-		 * @return string The menu title.
-		 */
-		public static function menu_title();
+		<?php foreach ( array_keys( Simple_Timer::get_interval_types() ) as $interval ) : ?>
+			<option value="<?php echo $interval; ?>"><?php echo ucwords( $interval ); ?>(s)</option>
+		<?php endforeach; ?>
 
-		/**
-		 * The capability required for the page to be displayed to the user.
-		 * 
-		 * @return string The capability required to display the settings page.
-		 */
-		public static function page_capability();
-
-	}
-
-}
+	</select>
+</div>

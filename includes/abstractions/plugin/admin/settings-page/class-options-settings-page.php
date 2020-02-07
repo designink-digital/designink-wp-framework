@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl-3.0.html
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to answers@designdigitalsolutions.com so we can send you a copy immediately.
+ * to answers@designinkdigital.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
@@ -22,18 +22,25 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page;
+namespace Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page;
+use Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Settings_Page\Options_Settings_Page', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Options_Settings_Page', false ) ) {
 
 	/**
 	 * A class to abstract and automate the process of creating a page under the 'settings' menu item.
 	 */
 	abstract class Options_Settings_Page extends Settings_Page {
+
+		/**
+		 * The inherited function from the abstract returning the submenu ID.
+		 * 
+		 * @return string The ID of the submenu from the WordPress global $submenu.
+		 */
+		final public static function submenu_id() { return 'options-general.php'; }
 
 		/**
 		 * Construct the parent settings page.

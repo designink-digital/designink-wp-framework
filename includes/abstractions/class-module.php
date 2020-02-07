@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl-3.0.html
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to answers@designdigitalsolutions.com so we can send you a copy immediately.
+ * to answers@designinkdigital.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
@@ -22,15 +22,15 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_1;
+namespace Designink\WordPress\Framework\v1_0_2;
 
-use Designink\WordPress\Framework\v1_0_1\Utility;
-use Designink\WordPress\Framework\v1_0_1\Framework;
-use Designink\WordPress\Framework\v1_0_1\Singleton;
+use Designink\WordPress\Framework\v1_0_2\Utility;
+use Designink\WordPress\Framework\v1_0_2\Framework;
+use Designink\WordPress\Framework\v1_0_2\Singleton;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Module', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Module', false ) ) {
 
 	/**
 	 * A class to represent crucial project file system structures and bind their PHP functionalities to WordPress.
@@ -121,7 +121,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Module', false ) ) {
 			$modules_directory = sprintf( '%s%s/%s', plugin_dir_path( $this->get_class_reflection()->getFileName() ), static::$includes_dir, static::$modules_dir );
 
 			if ( is_dir( $modules_directory ) ) {
-				$files = \Designink\WordPress\Framework\v1_0_1\Utility::scandir( $modules_directory );
+				$files = Utility::scandir( $modules_directory );
 
 				foreach ( $files as $file ) {
 					$file_path = sprintf( '%s/%s', $modules_directory, $file );
@@ -139,8 +139,8 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Module', false ) ) {
 							$module_name = Utility::pascal_underscorify( $matches[1] );
 							$this->import_module( $module_name, $file_path );
 						} else {
-							$message_format = "Found a potential module file, but it does not use the correct naming conventions. Skipping file: %s.";
-							trigger_error( __( sprintf( $message_format, $file_path ) ), E_USER_WARNING );
+							$message = sprintf( "Found a potential module file, but it does not use the correct naming conventions. Skipping file: %s.", $file_path );
+							Utility::doing_it_wrong( __METHOD__, __( $message ) );
 						}
 
 					}
@@ -154,7 +154,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Module', false ) ) {
 		 */
 		final protected function construct_submodules() {
 			foreach ( $this->loaded_modules as $Module ) {
-				if ( $Module instanceof \Designink\WordPress\Framework\v1_0_1\Module ) {
+				if ( $Module instanceof Module ) {
 					$Module::submodule_construct();
 				}
 			}
@@ -180,24 +180,24 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Module', false ) ) {
 				}
 
 				if ( class_exists( $qualified_name ) ) {
-					$is_module = is_subclass_of( $qualified_name, 'Designink\WordPress\Framework\v1_0_1\Module' );
+					$is_module = is_subclass_of( $qualified_name, Module::class );
 
 					if ( $is_module ) {
 						$Module = $qualified_name::submodule_instance();
 						$this->loaded_modules[ $qualified_name ] = $Module;
 					} else {
-						$message_format = "Successfully found class, '%s', but it does not appear to be a Module, make sure you are implementing Designink\WordPress\Framework\v1_0_1\Module in '%s'.";
-						trigger_error( __( sprintf( $message_format, $module_name, $module_path ) ), E_USER_WARNING );
+						$message = sprintf( "Successfully found class, '%s', but it does not appear to be a Module, make sure you are implementing %s in '%s'.", $module_name, self::class, $module_path );
+						Utility::doing_it_wrong( __METHOD__, __( $message ) );
 					}
 
 				} else {
-					$message_format = "Successfully required module file, '%s', but could not find specified Module '%s'.";
-					trigger_error( __( sprintf( $message_format, $module_path, $module_name ) ), E_USER_WARNING );
+					$message = sprintf( "Successfully required module file, '%s', but could not find specified Module '%s'.", $module_path, $module_name );
+					Utility::doing_it_wrong( __METHOD__, __( $message ) );
 				}
 
 			} else {
-				$message_format = "Tried to load module, but could not find the module file. Expected module file: '%s'.";
-				trigger_error( __( sprintf( $message_format, $module_path ) ), E_USER_WARNING );
+				$message_format = sprintf( "Tried to load module, but could not find the module file. Expected module file: '%s'.", $module_path );
+				Utility::doing_it_wrong( __METHOD__, __( $message ) );
 			}
 
 		}
@@ -217,7 +217,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Module', false ) ) {
 		}
 
 		/**
-		 * An alias for Designink\WordPress\Framework\v1_0_1\Autoloader::add_autoload_directory()
+		 * An alias for Designink\WordPress\Framework\v1_0_2\Autoloader::add_autoload_directory()
 		 * 
 		 * @param string $directory The directory to be searched for potential new classes.
 		 * @return bool Whether or not the directory was successfully added to the autoload array.

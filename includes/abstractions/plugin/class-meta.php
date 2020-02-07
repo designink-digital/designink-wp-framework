@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl-3.0.html
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to answers@designdigitalsolutions.com so we can send you a copy immediately.
+ * to answers@designinkdigital.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
@@ -22,11 +22,13 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_1\Plugin;
+namespace Designink\WordPress\Framework\v1_0_2\Plugin;
+
+use Designink\WordPress\Framework\v1_0_2\Utility;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Meta', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Meta', false ) ) {
 
 	/**
 	 * An abstract class for other abstract classes to inherit regarding saving meta values in standard form in the WordPress database.
@@ -94,7 +96,8 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Meta', false 
 		final protected function set_data( $data ) {
 
 			if ( $data instanceof object ) {
-				trigger_error( __( "It is not recommended to serialize objects into WordPress meta values." ), E_USER_NOTICE );
+				$message = "It is not recommended to serialize objects into WordPress meta values.";
+				Utility::doing_it_wrong( __METHOD__, __( $message ) );
 			}
 
 			$this->data = $data;

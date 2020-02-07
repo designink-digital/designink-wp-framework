@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl-3.0.html
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to answers@designdigitalsolutions.com so we can send you a copy immediately.
+ * to answers@designinkdigital.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
@@ -22,13 +22,13 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_1\Plugin\Post;
+namespace Designink\WordPress\Framework\v1_0_2\Plugin\Post;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_1\Plugin\Meta;
+use Designink\WordPress\Framework\v1_0_2\Plugin\Meta;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Post\Post_Meta', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Post\Post_Meta', false ) ) {
 
 	/**
 	 * An abstract for dealing with Post Meta.
@@ -47,8 +47,8 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Post\Post_Met
 
 			// If no Post given.
 			if ( empty( $post ) ) {
-				trigger_error( __( "Specified post passed to Designink\WordPress\Framework\v1_0_1\Posts\Post_Meta constructor was empty." ), E_USER_WARNING );
-				return;
+				$message = sprintf( "Specified post passed to %s constructor was empty.", self::class );
+				throw new \Exception( __( $message ) );
 			}
 
 			if ( is_numeric( $post ) ) {
@@ -56,8 +56,8 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Post\Post_Met
 				$Post = get_post( $post );
 
 				if ( empty( $Post ) ) {
-					trigger_error( __( "Could not find Post specified by ID passed Designink\WordPress\Framework\v1_0_1\Posts\Post_Meta constructor." ), E_USER_WARNING );
-					return;
+					$message = sprintf( "Could not find Post specified by ID passed %s constructor.", self::class );
+					throw new \Exception( __( $message ) );
 				}
 
 				$this->Post = $Post;

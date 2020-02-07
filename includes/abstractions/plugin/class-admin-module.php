@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl-3.0.html
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to answers@designdigitalsolutions.com so we can send you a copy immediately.
+ * to answers@designinkdigital.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
@@ -22,14 +22,14 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_1\Plugin;
+namespace Designink\WordPress\Framework\v1_0_2\Plugin;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_1\Plugin;
-use Designink\WordPress\Framework\v1_0_1\Utility;
+use Designink\WordPress\Framework\v1_0_2\Plugin;
+use Designink\WordPress\Framework\v1_0_2\Utility;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Admin_Module', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin_Module', false ) ) {
 
 	/**
 	 * A class to represent and help deal with common plugin admin functionality.
@@ -59,7 +59,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Admin_Module'
 		}
 
 		/**
-		 * Search for \Designink\WordPress\Framework\v1_0_1\Post_Type classes in the Plugin { static::$post_types_dir } and register them.
+		 * Search for \Designink\WordPress\Framework\v1_0_2\Post_Type classes in the Plugin { static::$post_types_dir } and register them.
 		 */
 		final private function register_available_screens() {
 			$reflection = $this->get_class_reflection();
@@ -73,7 +73,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Plugin\Admin_Module'
 						require_once ( $screens_dir . $file );
 						$screen_name = Utility::pascal_underscorify( $matches[1] );
 
-						if ( class_exists( $screen_name ) && is_subclass_of( $screen_name, 'Designink\WordPress\Framework\v1_0_1\Plugin\Admin\Screens' ) ) {
+						if ( class_exists( $screen_name ) && is_subclass_of( $screen_name, 'Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Screens' ) ) {
 							$screen_name::construct();
 							$this->loaded_screens[] = $screen_name;
 						}

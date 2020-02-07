@@ -22,42 +22,39 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page;
+$now = new \DateTime( 'now' );
+$next_run = $Timer->get_next_run();
+$last_run = $Timer->get_last_run();
 
-defined( 'ABSPATH' ) or exit;
+?>
 
-if ( ! interface_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Settings_Page_Interface', false ) ) {
+<div class="series-timer-info">
+	<table style="text-align:left; margin:1rem 0;">
+		<tr>
+			<th scope="row">Timer Type:</th>
+			<td><?php echo $Timer->timer_label(); ?></td>
+		</tr>
 
-	interface Settings_Page_Interface {
+		<tr>
+			<th scope="row">Timer Interval:</th>
+			<td><?php printf( '%s %s(s)', $Timer->multiplier, $Timer->interval ); ?></td>
+		</tr>
 
-		/**
-		 * The page slug for registering settings, adding menu items, etc.
-		 * 
-		 * @return string The page slug.
-		 */
-		public static function page_option_group();
+		<?php if ( $last_run ) : ?>
+			<tr>
+				<th scope="row">Last Timer Run:</th>
+				<td><?php echo $last_run->format( 'Y-m-d H:i:s' ); ?></td>
+			</tr>
+		<?php else : ?>
+			<tr>
+				<th scope="row">Timer Start:</th>
+				<td>Immediately</td>
+			</tr>
+		<?php endif; ?>
 
-		/**
-		 * The page name/title for display.
-		 * 
-		 * @return string The page title.
-		 */
-		public static function page_title();
-
-		/**
-		 * The menu name/title for display.
-		 * 
-		 * @return string The menu title.
-		 */
-		public static function menu_title();
-
-		/**
-		 * The capability required for the page to be displayed to the user.
-		 * 
-		 * @return string The capability required to display the settings page.
-		 */
-		public static function page_capability();
-
-	}
-
-}
+		<tr>
+			<th scope="row">Next Timer Run:</th>
+			<td><?php echo $next_run->format( 'Y-m-d H:i:s' ); ?></td>
+		</tr>
+	</table>
+</div>

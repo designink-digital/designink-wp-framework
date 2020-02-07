@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl-3.0.html
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to answers@designdigitalsolutions.com so we can send you a copy immediately.
+ * to answers@designinkdigital.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
@@ -22,13 +22,13 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_1\Action_Scheduler;
+namespace Designink\WordPress\Framework\v1_0_2\Action_Scheduler;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Timer;
+use Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Timer;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Timer_Manager', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Timer_Manager', false ) ) {
 
 	/**
 	 * A static class to manage the saving and loading of Timers from the database.
@@ -36,7 +36,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Tim
 	final class Timer_Manager {
 
 		/** @var string The option name that Timers get saved under in the database. */
-		const TIMERS_OPTION = 'ds_action_scheduler_timers';
+		const TIMERS_OPTION = 'di_action_scheduler_timers';
 
 		/**
 		 * Return all Timers instances from the database in an associative list of their IDs.
@@ -70,7 +70,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Tim
 		 * 
 		 * @param string $timer_id The Timer ID.
 		 * 
-		 * @return null|\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Timer The Timer instance or NULL.
+		 * @return null|\Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Timer The Timer instance or NULL.
 		 */
 		final public static function get_timer( string $timer_id ) {
 			$Timers = self::get_timers();
@@ -85,7 +85,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Tim
 		/**
 		 * Update/add a Timer, optionally merge Actions with a previously existing Timer being overwritten.
 		 * 
-		 * @param \Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Timer $Timer The Timer instance to update.
+		 * @param \Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Timer $Timer The Timer instance to update.
 		 * @param bool $merge_actions Whether or not to merge action with a previously existing Timer. (default FALSE)
 		 * 
 		 * @return bool Whether or not the Timers were persisted to the database.
@@ -105,7 +105,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Tim
 		/**
 		 * Given an array of Timers, update all Timers in the database to reflect the data in the array.
 		 * 
-		 * @param \Designink\WordPress\Framework\v1_0_1\Action_Scheduler\Timer[] The Timers to save.
+		 * @param \Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Timer[] The Timers to save.
 		 * 
 		 * @return bool Whether or not the option was persisted to the database.
 		 */
