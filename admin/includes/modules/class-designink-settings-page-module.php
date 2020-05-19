@@ -22,21 +22,20 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page;
+namespace Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_2\Module;
-use Designink\WordPress\Framework\v1_0_2\Utility;
+use Designink\WordPress\Framework\v1_0_3\Module;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Designink_Settings_Page_Module', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Designink_Settings_Page_Module', false ) ) {
 
 	/**
 	 * Manage the settings for for this plugin.
 	 */
 	final class Designink_Settings_Page_Module extends Module {
 
-		/** @var \Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page $Settings_Page The Settings Page instance. */
+		/** @var \Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages $Settings_Page The Settings Page instance. */
 		public static $Settings_Page;
 
 		/**

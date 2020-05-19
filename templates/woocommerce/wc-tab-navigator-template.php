@@ -22,20 +22,27 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_3;
+?>
 
-defined( 'ABSPATH' ) or exit;
+<div class="panel-wrap">
+	<ul class="wc-tabs">
 
-use Designink\WordPress\Framework\v1_0_3\Plugin;
+		<?php // Render tabs ?>
+		<?php foreach ( $Navigator->get_tabs() as $tab ) : ?>
+			<li class="<?php echo $tab['id']; ?> <?php echo array_key_exists( 'active', $tab ) && $tab['active'] ? 'active' : ''; ?>" data-tab-id="<?php echo $tab['id']; ?>">
+				<a href="javascript:void(0);">
+					<?php echo $tab['label']; ?>
+				</a>
+			</li>
+		<?php endforeach; ?>
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Designink_Framework_Shadow_Plugin', false ) ) {
+	</ul>
 
-	/**
-	 * The 'shadow' plugin for the framework that will control the loading of crucial modules.
-	 */
-	final class Designink_Framework_Shadow_Plugin extends Plugin { }
+	<?php // Render content ?>
+	<?php foreach ( $Navigator->get_tabs() as $tab ) : ?>
+		<div class="panel woocommerce_options_panel <?php echo $tab['id']; ?>">
+			<?php if ( is_callable( $tab['render'] ) ) : call_user_func_array( $tab['render'], array( $tab['render_args'] ) ); endif; ?>
+		</div>
+	<?php endforeach; ?>
 
-	// Start it up
-	Designink_Framework_Shadow_Plugin::instance();
-
-}
+</div>

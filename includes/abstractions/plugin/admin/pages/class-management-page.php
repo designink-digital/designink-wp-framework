@@ -22,25 +22,25 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page;
+namespace Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page;
+use Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Page;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Options_Settings_Page', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Management_Page', false ) ) {
 
 	/**
-	 * A class to abstract and automate the process of creating a page under the 'settings' menu item.
+	 * A class to abstract and automate the process of creating a page under the 'tools' menu item.
 	 */
-	abstract class Options_Settings_Page extends Settings_Page {
+	abstract class Management_Page extends Page {
 
 		/**
 		 * The inherited function from the abstract returning the submenu ID.
 		 * 
 		 * @return string The ID of the submenu from the WordPress global $submenu.
 		 */
-		final public static function submenu_id() { return 'options-general.php'; }
+		final public static function submenu_id() { return 'tools.php'; }
 
 		/**
 		 * Construct the parent settings page.
@@ -53,7 +53,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Setting
 		 * The inherited, abstract menu item function.
 		 */
 		final protected static function add_menu_item() {
-			add_options_page(
+			add_management_page(
 				__( static::page_title() ),
 				__( static::menu_title() ),
 				static::page_capability(),

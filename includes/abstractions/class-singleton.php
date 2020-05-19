@@ -22,11 +22,11 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_2;
+namespace Designink\WordPress\Framework\v1_0_3;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Singleton', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Singleton', false ) ) {
 	
 	/**
 	 * An abstraction to apply to singleton instances for uniform initialization.

@@ -22,29 +22,25 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_2\Plugin\Admin;
+namespace Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_2\Utility;
-use Designink\WordPress\Framework\v1_0_2\Singleton;
-use Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Settings_Section;
-use Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Settings_Page_Interface;
+use Designink\WordPress\Framework\v1_0_3\Utility;
+use Designink\WordPress\Framework\v1_0_3\Singleton;
+use Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Page_Interface;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Page', false ) ) {
 
 	/**
-	 * A class to abstract and automate the process of building settings pages.
+	 * A class to abstract and automate the process of building Pages.
 	 */
-	abstract class Settings_Page extends Singleton implements Settings_Page_Interface {
-
-		/** @var \Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Settings_Section[] The list of Sections attached to this Page. */
-		private $Sections = array();
+	abstract class Page extends Singleton implements Page_Interface {
 
 		/**
-		 * Return the Sections associated with this Page.
+		 * Return the Sections associated with this Settings Page.
 		 * 
-		 * @return \Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Settings_Section[] The Sections of this Page.
+		 * @return \Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Settings_Section[] The Sections of this Page.
 		 */
 		final public static function get_sections() { return $this->Sections; }
 
@@ -67,7 +63,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Setting
 			if ( ! self::menu_item_exists() ) {
 				static::add_menu_item();
 			} else {
-				Utility::doing_it_wrong( __METHOD__, __( sprintf( 'Trying to register a settings page which has already been registered in %s', __CLASS__ ) ) );
+				Utility::doing_it_wrong( __METHOD__, __( sprintf( 'Trying to register a Page which has already been registered in %s', static::class ) ) );
 			}
 
 		}
@@ -75,7 +71,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Setting
 		/**
 		 * See if the Settings Page exists in the WP global $submenu.
 		 * 
-		 * @return boolean Whether or not the Settings Page has been set.
+		 * @return boolean Whether or not the Page has been set.
 		 */
 		final public static function menu_item_exists() {
 			global $submenu;
@@ -89,33 +85,6 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Setting
 			}
 
 			return false;
-		}
-
-		/**
-		 * Get all of the settings for this page and display them.
-		 */
-		final public static function render() {
-			?>
-
-				<form action="options.php" method="POST">
-					<!-- Display nonce and hidden inputs for the Page -->
-					<?php settings_fields( static::page_option_group() ); ?>
-					<!-- Render the sections -->
-					<?php do_settings_sections( static::page_option_group() ); ?>
-					<!-- Create submit button -->
-					<?php submit_button( 'Save Settings' ); ?>
-				</form>
-
-			<?php
-		}
-
-		/**
-		 * Register a section with this Page.
-		 * 
-		 * @param \Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Settings_Section $Settings_Section The Section to add to this Page.
-		 */
-		final public function add_section( Settings_Section $Settings_Section ) {
-			$this->Sections[] = $Settings_Section;
 		}
 
 	}

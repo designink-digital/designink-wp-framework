@@ -22,16 +22,16 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_2\Action_Scheduler;
+namespace Designink\WordPress\Framework\v1_0_3\Action_Scheduler;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_2\Utility;
-use Designink\WordPress\Framework\v1_0_2\Designink_Framework_Shadow_Plugin;
+use Designink\WordPress\Framework\v1_0_3\Utility;
+use Designink\WordPress\Framework\v1_0_3\Designink_Framework_Shadow_Plugin;
 use Exception;
 use ParseError;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Action_Scheduler\Interval_Timer', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Action_Scheduler\Interval_Timer', false ) ) {
 
 	/**
 	 * A Timer instance that bases it's run times off of even intervals from a specified start times. It can also return how many missed intervals a Timer may potentially have.

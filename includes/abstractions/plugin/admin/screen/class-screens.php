@@ -22,11 +22,11 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_2\Plugin\Admin;
+namespace Designink\WordPress\Framework\v1_0_3\Plugin\Admin;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Screens', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Screens', false ) ) {
 
 	/**
 	 * An extension to the Admin Module that manages code related to particular admin screens, and what code should be run in global or local context.

@@ -22,13 +22,13 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_2\Plugin\Post;
+namespace Designink\WordPress\Framework\v1_0_3\Plugin\Post;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_2\Plugin\Meta;
+use Designink\WordPress\Framework\v1_0_3\Plugin\Meta;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Post\Post_Meta', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Post\Post_Meta', false ) ) {
 
 	/**
 	 * An abstract for dealing with Post Meta.

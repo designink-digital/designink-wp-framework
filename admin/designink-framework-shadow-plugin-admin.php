@@ -22,17 +22,33 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_2;
+namespace Designink\WordPress\Framework\v1_0_3;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_2\Plugin\Admin_Module;
+use Designink\WordPress\Framework\v1_0_3\Plugin\Admin_Module;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Designink_Framework_Shadow_Plugin_Admin', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Designink_Framework_Shadow_Plugin_Admin', false ) ) {
 
 	/**
 	 * The 'shadow' plugin for the framework that will control the loading of crucial modules.
 	 */
-	final class Designink_Framework_Shadow_Plugin_Admin extends Admin_Module { }
+	final class Designink_Framework_Shadow_Plugin_Admin extends Admin_Module {
+
+		/**
+		 * Module entry point.
+		 */
+		final public static function construct() {
+			add_action( 'admin_enqueue_scripts', array( __CLASS__, '_admin_enqueue_scripts' ) );
+		}
+
+		/**
+		 * WordPress 'admin_enqueue_scripts' hook.
+		 */
+		final public static function _admin_enqueue_scripts() {
+			self::instance()->enqueue_css( 'designink-admin-styles' );
+		}
+
+	}
 
 }

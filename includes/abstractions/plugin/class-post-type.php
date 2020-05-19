@@ -22,15 +22,15 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_2\Plugin;
+namespace Designink\WordPress\Framework\v1_0_3\Plugin;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_2\Utility;
-use Designink\WordPress\Framework\v1_0_2\Singleton;
-use Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Meta_Box;
+use Designink\WordPress\Framework\v1_0_3\Utility;
+use Designink\WordPress\Framework\v1_0_3\Singleton;
+use Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Meta_Box;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Post_Type', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Post_Type', false ) ) {
 
 	/**
 	 * In this class, we attempt to define and encapsulate the functionalities of a single "Post Type" in WordPress.
@@ -183,7 +183,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Post_Type', f
 		/**
 		 * Add a Meta Box to this Post Type if it is not already added.
 		 * 
-		 * @param \Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Meta_Box
+		 * @param \Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Meta_Box
 		 */
 		final public function add_meta_box( Meta_Box $Meta_Box ) {
 			if ( ! array_key_exists( $Meta_Box->get_id(), $this->Meta_Boxes ) ) {
@@ -192,14 +192,39 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Post_Type', f
 		}
 
 		/**
-		 * 
-		 * 
-		 * @param \Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Meta_Box
+		 * Register all Meta Boxes associated with this Post Type.
 		 */
 		final public function register_meta_boxes() {
 			foreach ( $this->Meta_Boxes as $Meta_Box ) {
 				$Meta_Box::instance()->add_meta_box();
 			}
+		}
+
+		/**
+		 * Get all Posts with this post type.
+		 * 
+		 * @param array $args The arguments to pass to the \WP_Query.
+		 * 
+		 * @return static The Post Type instance.
+		 */
+		final public static function get_all_posts( $args = array() ) {
+			$Schedules = array();
+
+			$args = Utility::guided_array_merge(
+				array(
+					'posts_per_page' => -1
+				),
+				$args
+			);
+
+			$args['post_type'] = static::post_type();
+			$Query = new \WP_Query( $args );
+
+			foreach ( $Query->posts as $Post ) {
+				array_push( $Schedules, $Post );
+			}
+
+			return $Schedules;
 		}
 
 	}

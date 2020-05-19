@@ -26,16 +26,13 @@ namespace Designink\WordPress\Framework\v1_0_3;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_3\Plugin;
+use Designink\WordPress\Framework\v1_0_3\Module;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Designink_Framework_Shadow_Plugin', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Woocommerce', false ) ) {
 
 	/**
-	 * The 'shadow' plugin for the framework that will control the loading of crucial modules.
+	 * A class to manage the DesignInk Woocommerce solutions for WordPress.
 	 */
-	final class Designink_Framework_Shadow_Plugin extends Plugin { }
-
-	// Start it up
-	Designink_Framework_Shadow_Plugin::instance();
+	final class Woocommerce extends Module { }
 
 }

@@ -22,13 +22,13 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_2\Admin;
+namespace Designink\WordPress\Framework\v1_0_3\Admin;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_2\Module;
+use Designink\WordPress\Framework\v1_0_3\Module;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Admin\Plugin_Update_Helper_Module', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Admin\Plugin_Update_Helper_Module', false ) ) {
 
 	final class Plugin_Update_Helper_Module extends Module {
 

@@ -22,41 +22,35 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page;
+namespace Designink\WordPress\Framework\v1_0_3\Action_Scheduler;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! interface_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Settings_Page_Interface', false ) ) {
+use Designink\WordPress\Framework\v1_0_3\Module;
 
-	interface Settings_Page_Interface {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Action_Scheduler_Viewer_Module', false ) ) {
 
-		/**
-		 * The page slug for registering settings, adding menu items, etc.
-		 * 
-		 * @return string The page slug.
-		 */
-		public static function page_option_group();
+	/**
+	 * Manage the settings for for this plugin.
+	 */
+	final class Action_Scheduler_Viewer_Module extends Module {
 
-		/**
-		 * The page name/title for display.
-		 * 
-		 * @return string The page title.
-		 */
-		public static function page_title();
+		/** @var \Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Management_Settings_Page $Page The Page instance. */
+		public static $Page;
 
 		/**
-		 * The menu name/title for display.
-		 * 
-		 * @return string The menu title.
+		 * Add WordPress hooks, set Page instance.
 		 */
-		public static function menu_title();
+		final public static function construct() {
+			add_action( 'admin_menu', array( __CLASS__, '_admin_menu' ) );
+		}
 
 		/**
-		 * The capability required for the page to be displayed to the user.
-		 * 
-		 * @return string The capability required to display the settings page.
+		 * WordPress 'admin_menu' hook.
 		 */
-		public static function page_capability();
+		final public static function _admin_menu() {
+			self::$Page = new Action_Scheduler_Viewer();
+		}
 
 	}
 

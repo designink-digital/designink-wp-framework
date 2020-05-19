@@ -22,16 +22,16 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_2;
+namespace Designink\WordPress\Framework\v1_0_3;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_2\Framework;
-use Designink\WordPress\Framework\v1_0_2\Module;
-use Designink\WordPress\Framework\v1_0_2\Plugin\Admin_Module;
-use Designink\WordPress\Framework\v1_0_2\Plugin\Post_Type;
+use Designink\WordPress\Framework\v1_0_3\Framework;
+use Designink\WordPress\Framework\v1_0_3\Module;
+use Designink\WordPress\Framework\v1_0_3\Plugin\Admin_Module;
+use Designink\WordPress\Framework\v1_0_3\Plugin\Post_Type;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin', false ) ) {
 
 	/**
 	 * A class to represent and help deal with common plugin functionality.
@@ -40,7 +40,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin', false ) ) {
 	 */
 	abstract class Plugin extends Module {
 
-		/** @var \Designink\WordPress\Framework\v1_0_2\Plugin\Admin_Module The admin module, if loaded. */
+		/** @var \Designink\WordPress\Framework\v1_0_3\Plugin\Admin_Module The admin module, if loaded. */
 		protected $admin_module;
 
 		/** @var string The default directory for loading templates. */
@@ -55,7 +55,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin', false ) ) {
 		/**
 		 * Get the Admin Module.
 		 * 
-		 * @return null|\Designink\WordPress\Framework\v1_0_2\Plugin\Admin_Module The Admin Module.
+		 * @return null|\Designink\WordPress\Framework\v1_0_3\Plugin\Admin_Module The Admin Module.
 		 */
 		final public function get_admin_module() { return $this->admin_module; }
 
@@ -74,7 +74,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin', false ) ) {
 			register_activation_hook( $file, array( __CLASS__, 'activate' ) );
 			register_deactivation_hook( $file, array( __CLASS__, 'deactivate' ) );
 
-			// If this instance directly inherits \Designink\WordPress\Framework\v1_0_2\Plugin.
+			// If this instance directly inherits \Designink\WordPress\Framework\v1_0_3\Plugin.
 			if ( __CLASS__ === $parent_class ) {
 				Framework::instance()->register_plugin( $this );
 				$this->maybe_init_admin();
@@ -153,7 +153,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin', false ) ) {
 		}
 
 		/**
-		 * Look for the admin module and load it. It was decided the admin module should stay in \Designink\WordPress\Framework\v1_0_2\Plugin and not belong in \Designink\WordPress\Framework\v1_0_2\Module
+		 * Look for the admin module and load it. It was decided the admin module should stay in \Designink\WordPress\Framework\v1_0_3\Plugin and not belong in \Designink\WordPress\Framework\v1_0_3\Module
 		 * because it may be cleaner to isolate all of the admin code to one area so we don't have to look for admin functionality in admin and non-admin modules. Admin extensions
 		 * should then only be available to root plugins.
 		 */
@@ -182,7 +182,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin', false ) ) {
 		}
 
 		/**
-		 * Search for \Designink\WordPress\Framework\v1_0_2\Post_Type classes in the Plugin { static::$post_types_dir } and register them.
+		 * Search for \Designink\WordPress\Framework\v1_0_3\Post_Type classes in the Plugin { static::$post_types_dir } and register them.
 		 */
 		final private function register_available_post_types() {
 			$reflection = $this->get_class_reflection();
@@ -204,6 +204,15 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin', false ) ) {
 					}
 				}
 			}
+		}
+
+		/**
+		 * Return the file location of the Plugin instance.
+		 * 
+		 * @return string The plugin file location.
+		 */
+		final public function get_plugin_file() {
+			return $this->get_class_reflection()->getFileName();
 		}
 
 	}

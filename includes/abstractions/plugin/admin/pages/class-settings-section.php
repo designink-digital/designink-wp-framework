@@ -22,15 +22,15 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page;
+namespace Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_2\Utility;
-use Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page;
-use Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Settings_Field;
+use Designink\WordPress\Framework\v1_0_3\Utility;
+use Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages;
+use Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Settings_Field;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Settings_Section', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Settings_Section', false ) ) {
 
 	/**
 	 * A class to automate the process of creating a page under the 'settings' menu item.
@@ -39,10 +39,10 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Setting
 	 */
 	class Settings_Section {
 
-		/** @var \Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page Settings Page parent instance */
+		/** @var \Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages Settings Page parent instance */
 		protected $Settings_Page;
 
-		/** @var \Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Settings_Field[] Fields registered to this Section. */
+		/** @var \Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Settings_Field[] Fields registered to this Section. */
 		protected $Settings_Fields;
 
 		/** @var string The section identifier for the settings section. */
@@ -60,14 +60,14 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Setting
 		/**
 		 * Return the Settings Page instance.
 		 * 
-		 * @return \Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page $Settings_Page The Settings Page instance.
+		 * @return \Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages $Settings_Page The Settings Page instance.
 		 */
 		final public function get_settings_page() { return $this->Settings_Page; }
 
 		/**
 		 * Return the Settings Field instances.
 		 * 
-		 * @return \Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Settings_Field[] $Settings_Fields The Settings Fields in this Section instance.
+		 * @return \Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Settings_Field[] $Settings_Fields The Settings Fields in this Section instance.
 		 */
 		final public function get_settings_fields() { return $this->Settings_Fields; }
 
@@ -81,7 +81,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Setting
 		/**
 		 * Set the initial values for the Settings Section.
 		 * 
-		 * @param \Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page $Settings_Page The parent Settings Page that these settings belong to.
+		 * @param \Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages $Settings_Page The parent Settings Page that these settings belong to.
 		 * @param string $section_name The section identifier.
 		 * @param array $args The optional arguments to pass to the Section.
 		 */

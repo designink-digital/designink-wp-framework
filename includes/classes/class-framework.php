@@ -22,14 +22,14 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_2;
+namespace Designink\WordPress\Framework\v1_0_3;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_2\Plugin;
-use Designink\WordPress\Framework\v1_0_2\Autoloader;
+use Designink\WordPress\Framework\v1_0_3\Plugin;
+use Designink\WordPress\Framework\v1_0_3\Autoloader;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Framework', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Framework', false ) ) {
 
 	/**
 	 * The wrappper class for a proprietary set of code which seeks to facilitate WordPress development and encourage use of the documented coding standards.
@@ -40,10 +40,10 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Framework', false ) 
 		/**
 		 * @var string VERSION constant for compatibility.
 		 */
-		const VERSION = '1.0.2';
+		const VERSION = '1.0.3';
 
 		/**
-		 * @var \Designink\WordPress\Framework\v1_0_2\Autoloader Class autoloader instance.
+		 * @var \Designink\WordPress\Framework\v1_0_3\Autoloader Class autoloader instance.
 		 */
 		protected $autoloader;
 
@@ -67,9 +67,9 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Framework', false ) 
 		}
 
 		/**
-		 * Return the Designink\WordPress\Framework\v1_0_2\Autoloader instance.
+		 * Return the Designink\WordPress\Framework\v1_0_3\Autoloader instance.
 		 * 
-		 * @return \Designink\WordPress\Framework\v1_0_2\Autoloader The instance.
+		 * @return \Designink\WordPress\Framework\v1_0_3\Autoloader The instance.
 		 */
 		final public function get_autoloader() {
 			return $this->autoloader;
@@ -78,7 +78,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Framework', false ) 
 		/**
 		 * Add a plugin instance to the list of registered plugins.
 		 * 
-		 * @param \Designink\WordPress\Framework\v1_0_2\Plugin $plugin The plugin to register.
+		 * @param \Designink\WordPress\Framework\v1_0_3\Plugin $plugin The plugin to register.
 		 */
 		final public function register_plugin( Plugin $Plugin ) {
 			$class_name = $Plugin->get_class_reflection()->getName();

@@ -22,20 +22,42 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_3;
+namespace Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_3\Plugin;
+if ( ! interface_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Page_Interface', false ) ) {
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Designink_Framework_Shadow_Plugin', false ) ) {
+	interface Page_Interface {
 
-	/**
-	 * The 'shadow' plugin for the framework that will control the loading of crucial modules.
-	 */
-	final class Designink_Framework_Shadow_Plugin extends Plugin { }
+		/**
+		 * The page slug for registering settings, adding menu items, etc.
+		 * 
+		 * @return string The page slug.
+		 */
+		public static function page_option_group();
 
-	// Start it up
-	Designink_Framework_Shadow_Plugin::instance();
+		/**
+		 * The page name/title for display.
+		 * 
+		 * @return string The page title.
+		 */
+		public static function page_title();
+
+		/**
+		 * The menu name/title for display.
+		 * 
+		 * @return string The menu title.
+		 */
+		public static function menu_title();
+
+		/**
+		 * The capability required for the page to be displayed to the user.
+		 * 
+		 * @return string The capability required to display the settings page.
+		 */
+		public static function page_capability();
+
+	}
 
 }

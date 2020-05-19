@@ -22,18 +22,18 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page;
+namespace Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Options_Settings_Page;
+use Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Options_Page;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_2\Plugin\Admin\Settings_Page\Designink_Settings_Page', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Designink_Settings_Page', false ) ) {
 
 	/**
 	 * The options page configuration for general settings regarding the modules included in this plugin.
 	 */
-	final class Designink_Settings_Page extends Options_Settings_Page {
+	final class Designink_Settings_Page extends Options_Page {
 
 		/** @var string The page option group. */
 		final public static function page_option_group() { return 'designink-settings'; }
