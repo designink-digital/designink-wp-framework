@@ -22,11 +22,11 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages;
+namespace Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Pages;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! interface_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Page_Interface', false ) ) {
+if ( ! interface_exists( '\Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Pages\Page_Interface', false ) ) {
 
 	interface Page_Interface {
 

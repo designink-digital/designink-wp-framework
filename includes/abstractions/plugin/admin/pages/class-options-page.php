@@ -22,21 +22,21 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages;
+namespace Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Pages;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Page;
-use Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Settings_Section;
+use Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Pages\Page;
+use Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Pages\Settings_Section;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Options_Page', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Pages\Options_Page', false ) ) {
 
 	/**
 	 * A class to abstract and automate the process of creating a page under the 'settings' menu item.
 	 */
 	abstract class Options_Page extends Page {
 
-		/** @var \Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Settings_Section[] The list of Sections attached to this Page. */
+		/** @var \Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Pages\Settings_Section[] The list of Sections attached to this Page. */
 		private $Sections = array();
 
 		/**
@@ -87,7 +87,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\O
 		/**
 		 * Register a section with this Page.
 		 * 
-		 * @param \Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Settings_Section $Settings_Section The Section to add to this Page.
+		 * @param \Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Pages\Settings_Section $Settings_Section The Section to add to this Page.
 		 */
 		final public function add_section( Settings_Section $Settings_Section ) {
 			$this->Sections[] = $Settings_Section;

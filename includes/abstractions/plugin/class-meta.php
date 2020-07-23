@@ -22,13 +22,13 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_3\Plugin;
+namespace Designink\WordPress\Framework\v1_0_4\Plugin;
 
-use Designink\WordPress\Framework\v1_0_3\Utility;
+use Designink\WordPress\Framework\v1_0_4\Utility;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Meta', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Plugin\Meta', false ) ) {
 
 	/**
 	 * An abstract class for other abstract classes to inherit regarding saving meta values in standard form in the WordPress database.

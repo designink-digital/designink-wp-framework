@@ -22,19 +22,17 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_3\Plugin;
+namespace Designink\WordPress\Framework\v1_0_4\Plugin;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_3\Plugin;
-use Designink\WordPress\Framework\v1_0_3\Utility;
+use Designink\WordPress\Framework\v1_0_4\Plugin;
+use Designink\WordPress\Framework\v1_0_4\Utility;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Admin_Module', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Plugin\Admin_Module', false ) ) {
 
 	/**
 	 * A class to represent and help deal with common plugin admin functionality.
-	 * 
-	 * @since 3.0.0
 	 */
 	abstract class Admin_Module extends Plugin {
 
@@ -59,7 +57,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Admin_Module'
 		}
 
 		/**
-		 * Search for \Designink\WordPress\Framework\v1_0_3\Post_Type classes in the Plugin { static::$post_types_dir } and register them.
+		 * Search for \Designink\WordPress\Framework\v1_0_4\Post_Type classes in the Plugin { static::$post_types_dir } and register them.
 		 */
 		final private function register_available_screens() {
 			$reflection = $this->get_class_reflection();
@@ -73,7 +71,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Admin_Module'
 						require_once ( $screens_dir . $file );
 						$screen_name = Utility::pascal_underscorify( $matches[1] );
 
-						if ( class_exists( $screen_name ) && is_subclass_of( $screen_name, 'Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Screens' ) ) {
+						if ( class_exists( $screen_name ) && is_subclass_of( $screen_name, 'Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Screens' ) ) {
 							$screen_name::construct();
 							$this->loaded_screens[] = $screen_name;
 						}

@@ -22,13 +22,13 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Screens;
+namespace Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Screens;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Screens;
+use Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Screens;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Screens\Post_Screens', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Screens\Post_Screens', false ) ) {
 
 	/**
 	 * A manager for screens that belong to a post type.

@@ -22,14 +22,14 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_3\Plugin\Admin;
+namespace Designink\WordPress\Framework\v1_0_4\Plugin\Admin;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_3\Module;
-use Designink\WordPress\Framework\v1_0_3\Admin\Admin_Notice_Queue;
+use Designink\WordPress\Framework\v1_0_4\Module;
+use Designink\WordPress\Framework\v1_0_4\Admin\Admin_Notice_Queue;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Admin_Notice_Module', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Admin_Notice_Module', false ) ) {
 
 	/**
 	 * This module holds the logic for saving our admin notices as transients and displaying them on an admin page load.

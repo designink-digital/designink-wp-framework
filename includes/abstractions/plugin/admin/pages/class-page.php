@@ -22,15 +22,15 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages;
+namespace Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Pages;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_3\Utility;
-use Designink\WordPress\Framework\v1_0_3\Singleton;
-use Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Page_Interface;
+use Designink\WordPress\Framework\v1_0_4\Utility;
+use Designink\WordPress\Framework\v1_0_4\Singleton;
+use Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Pages\Page_Interface;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Page', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Pages\Page', false ) ) {
 
 	/**
 	 * A class to abstract and automate the process of building Pages.
@@ -40,7 +40,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\P
 		/**
 		 * Return the Sections associated with this Settings Page.
 		 * 
-		 * @return \Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Settings_Section[] The Sections of this Page.
+		 * @return \Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Pages\Settings_Section[] The Sections of this Page.
 		 */
 		final public static function get_sections() { return $this->Sections; }
 

@@ -22,20 +22,20 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_3\Action_Scheduler;
+namespace Designink\WordPress\Framework\v1_0_4\Action_Scheduler;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_3\Module;
+use Designink\WordPress\Framework\v1_0_4\Module;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_3\Action_Scheduler_Viewer_Module', false ) ) {
+if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Action_Scheduler_Viewer_Module', false ) ) {
 
 	/**
 	 * Manage the settings for for this plugin.
 	 */
 	final class Action_Scheduler_Viewer_Module extends Module {
 
-		/** @var \Designink\WordPress\Framework\v1_0_3\Plugin\Admin\Pages\Management_Settings_Page $Page The Page instance. */
+		/** @var \Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Pages\Management_Settings_Page $Page The Page instance. */
 		public static $Page;
 
 		/**
