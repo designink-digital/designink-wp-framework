@@ -16,20 +16,20 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress/Framework
+ * @package   DesignInk/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC
+ * @copyright Copyright (c) 2008-2021, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_4\Woocommerce;
+namespace DesignInk\WordPress\Framework\v1_1_0\WooCommerce;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_4\Designink_Framework_Shadow_Plugin;
-use Designink\WordPress\Framework\v1_0_4\Utility;
+use DesignInk\WordPress\Framework\v1_1_0\DesignInk_Framework_Shadow_Plugin;
+use DesignInk\WordPress\Framework\v1_1_0\Utility;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Woocommerce\WC_Tab_Navigator', false ) ) {
+if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_0\WooCommerce\WC_Tab_Navigator', false ) ) {
 
 	/**
 	 * A class to encompass the creation and script handling of wht WooCommerce Tabs UI component.
@@ -94,7 +94,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Woocommerce\WC_Tab_N
 		 * Print the Navigator HTML.
 		 */
 		final public function print_navigator() {
-			Designink_Framework_Shadow_Plugin::instance()->get_template( 'woocommerce/wc-tab-navigator', array( 'Navigator' => $this ) );
+			DesignInk_Framework_Shadow_Plugin::instance()->get_template( 'woocommerce/wc-tab-navigator', array( 'Navigator' => $this ) );
 		}
 
 		/**
@@ -104,8 +104,8 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Woocommerce\WC_Tab_N
 			$script = 'designink-wc-tab-navigator';
 
 			if ( ! wp_script_is( $script, 'enqueued' ) ) {
-				Designink_Framework_Shadow_Plugin::instance()->enqueue_js( $script );
-				Designink_Framework_Shadow_Plugin::instance()->enqueue_css( $script );
+				DesignInk_Framework_Shadow_Plugin::instance()->enqueue_js( $script );
+				DesignInk_Framework_Shadow_Plugin::instance()->enqueue_css( $script );
 			}
 
 			if ( ! wp_script_is( 'woocommerce_admin_styles', 'enqueued' ) ) {

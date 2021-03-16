@@ -7,7 +7,7 @@
  * @param {string} message The message to display in the Admin Notice.
  * @param {string} type The type of Admin Notice to display.
  */
-function DesigninkWpAdminNotice( message, type = 'info' ) {
+function DesignInkWpAdminNotice( message, type = 'info' ) {
 	this.maybeCreateNoticeContainer();
 	this.message = message;
 	this.noticeType = this.validateNoticeType( type );
@@ -17,7 +17,7 @@ function DesigninkWpAdminNotice( message, type = 'info' ) {
 /**
  * Create the notice container in the correct area if it does not already exist.
  */
-DesigninkWpAdminNotice.prototype.maybeCreateNoticeContainer = function() {
+DesignInkWpAdminNotice.prototype.maybeCreateNoticeContainer = function() {
 	const containerId = 'designink-wp-framework-js-admin-notices';
 	let container = document.getElementById( containerId );
 
@@ -42,7 +42,7 @@ DesigninkWpAdminNotice.prototype.maybeCreateNoticeContainer = function() {
  * 
  * @return {string} The passed type, or a valid default type.
  */
-DesigninkWpAdminNotice.prototype.validateNoticeType = function( type = 'info' ) {
+DesignInkWpAdminNotice.prototype.validateNoticeType = function( type = 'info' ) {
 	types = [ 'info', 'warning', 'error', 'success' ];
 
 	if ( types.includes( type ) ) {
@@ -56,7 +56,7 @@ DesigninkWpAdminNotice.prototype.validateNoticeType = function( type = 'info' ) 
 /**
  * Append the notice to the notice container.
  */
-DesigninkWpAdminNotice.prototype.addMessage = function() {
+DesignInkWpAdminNotice.prototype.addMessage = function() {
 	this.notice = this.createMessageContainer();
 	this.noticeContainer.appendChild( this.notice );
 };
@@ -66,7 +66,7 @@ DesigninkWpAdminNotice.prototype.addMessage = function() {
  * 
  * @return {HTMLDivElement} The message container.
  */
-DesigninkWpAdminNotice.prototype.createMessageContainer = function() {
+DesignInkWpAdminNotice.prototype.createMessageContainer = function() {
 	const container = document.createElement( 'div' );
 	const message = document.createElement( 'p' );
 	const dismiss = document.createElement( 'button' );
@@ -94,7 +94,7 @@ DesigninkWpAdminNotice.prototype.createMessageContainer = function() {
 /**
  * The action handler for removing the notice.
  */
-DesigninkWpAdminNotice.prototype.removeNotice = function() {
+DesignInkWpAdminNotice.prototype.removeNotice = function() {
 	const that = this;
 
 	jQuery( this.notice ).animate( {

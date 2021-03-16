@@ -16,22 +16,20 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress/Framework
+ * @package   DesignInk/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC
+ * @copyright Copyright (c) 2008-2021, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_4\Action_Scheduler;
+namespace DesignInk\WordPress\Framework\v1_1_0\Action_Scheduler;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_4\Action_Scheduler\Timer;
-use Designink\WordPress\Framework\v1_0_4\Action_Scheduler\Simple_Timer;
-use Designink\WordPress\Framework\v1_0_4\Action_Scheduler\Interval_Timer;
-use Designink\WordPress\Framework\v1_0_4\Designink_Framework_Shadow_Plugin;
+use DesignInk\WordPress\Framework\v1_1_0\Action_Scheduler\Timer;
+use DesignInk\WordPress\Framework\v1_1_0\DesignInk_Framework_Shadow_Plugin;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Action_Scheduler\Form_Builder', false ) ) {
+if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_0\Action_Scheduler\Form_Builder', false ) ) {
 
 	/**
 	 * A class to automate the creation of timers through form submissions.
@@ -63,8 +61,8 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Action_Scheduler\For
 		 * Enqueue the scripts and styles for the form builder.
 		 */
 		final public static function enqueue_form_builder_scripts() {
-			Designink_Framework_Shadow_Plugin::instance()->enqueue_css( 'action-scheduler-form-builder' );
-			Designink_Framework_Shadow_Plugin::instance()->enqueue_js( 'action-scheduler-form-builder' );
+			DesignInk_Framework_Shadow_Plugin::instance()->enqueue_css( 'action-scheduler-form-builder' );
+			DesignInk_Framework_Shadow_Plugin::instance()->enqueue_js( 'action-scheduler-form-builder' );
 		}
 
 		/**
@@ -91,7 +89,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Action_Scheduler\For
 		 * @param string $group What name to categorize this form under.
 		 */
 		final public static function print_form( string $group ) {
-			Designink_Framework_Shadow_Plugin::instance()->get_template( 'timer-form-builder-base', array( 'group' => $group ) );
+			DesignInk_Framework_Shadow_Plugin::instance()->get_template( 'timer-form-builder-base', array( 'group' => $group ) );
 		}
 
 		/**
@@ -116,7 +114,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Action_Scheduler\For
 		 * @param string $id The unique string identifier you want to have attached to your timer.
 		 * @param array $option The Timer options passed to the Timer on creation, these values will be overwritten by any corresponding form submission options.
 		 * 
-		 * @return null|\WP_Error|\Designink\WordPress\Framework\v1_0_4\Action_Scheduler\Timer The newly created/updated Timer instance.
+		 * @return null|\WP_Error|\DesignInk\WordPress\Framework\v1_1_0\Action_Scheduler\Timer The newly created/updated Timer instance.
 		 */
 		final public static function generate_timer_from_form( string $group, string $id, array $options ) {
 			$Timer = null;

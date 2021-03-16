@@ -16,22 +16,20 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress/Framework
+ * @package   DesignInk/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC
+ * @copyright Copyright (c) 2008-2021, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_4\Action_Scheduler;
+namespace DesignInk\WordPress\Framework\v1_1_0\Action_Scheduler;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_4\Utility;
-use Designink\WordPress\Framework\v1_0_4\Designink_Framework_Shadow_Plugin;
-use Exception;
-use ParseError;
+use DesignInk\WordPress\Framework\v1_1_0\Utility;
+use DesignInk\WordPress\Framework\v1_1_0\DesignInk_Framework_Shadow_Plugin;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Action_Scheduler\Interval_Timer', false ) ) {
+if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_0\Action_Scheduler\Interval_Timer', false ) ) {
 
 	/**
 	 * A Timer instance that bases it's run times off of even intervals from a specified start times. It can also return how many missed intervals a Timer may potentially have.
@@ -139,7 +137,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Action_Scheduler\Int
 		 * @param string $group The name of the group the Timer will have in the form.
 		 */
 		final public static function print_form( string $group ) {
-			Designink_Framework_Shadow_Plugin::instance()->get_template( 'interval-timer-form-builder', array( 'group' => $group ) );
+			DesignInk_Framework_Shadow_Plugin::instance()->get_template( 'interval-timer-form-builder', array( 'group' => $group ) );
 		}
 
 		/**
@@ -250,7 +248,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Action_Scheduler\Int
 		 * The inherited abstract for printing Timer info.
 		 */
 		final public function print_info() {
-			Designink_Framework_Shadow_Plugin::instance()->get_template( 'interval-timer-print-info', array( 'Timer' => $this ) );
+			DesignInk_Framework_Shadow_Plugin::instance()->get_template( 'interval-timer-print-info', array( 'Timer' => $this ) );
 		}
 
 	}

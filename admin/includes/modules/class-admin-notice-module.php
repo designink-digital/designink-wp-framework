@@ -16,20 +16,21 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress/Framework
+ * @package   DesignInk/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC
+ * @copyright Copyright (c) 2008-2021, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_4\Plugin\Admin;
+namespace DesignInk\WordPress\Framework\v1_1_0\Admin;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_4\Module;
-use Designink\WordPress\Framework\v1_0_4\Admin\Admin_Notice_Queue;
+use DesignInk\WordPress\Framework\v1_1_0\Admin\Admin_Notices;
+use DesignInk\WordPress\Framework\v1_1_0\DesignInk_Framework_Shadow_Plugin;
+use DesignInk\WordPress\Framework\v1_1_0\Module;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Admin_Notice_Module', false ) ) {
+if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_0\Admin\Admin_Notice_Module', false ) ) {
 
 	/**
 	 * This module holds the logic for saving our admin notices as transients and displaying them on an admin page load.
@@ -48,14 +49,14 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Plugin\Admin\Admin_N
 		 * WordPress 'admin_enqueue_scripts' hook.
 		 */
 		final public static function _admin_enqueue_scripts() {
-			wp_register_script( 'designink_admin_notices', sprintf( '%s/designink-wp-admin-notices.js', plugins_url( '../../assets/js', __FILE__ ) ), array( 'jquery' ) );
+			DesignInk_Framework_Shadow_Plugin::instance()->get_admin_module()->enqueue_js( 'designink-wp-admin-notices', array( 'jquery' ) );
 		}
 
 		/**
 		 * WordPress 'admin_notices' hook.
 		 */
 		final public static function _admin_notices() {
-			Admin_Notice_Queue::print_notices();
+			Admin_Notices::print_notices();
 		}
 
 	}

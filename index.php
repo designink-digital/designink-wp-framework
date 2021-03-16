@@ -16,9 +16,9 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress/Framework
+ * @package   DesignInk/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC
+ * @copyright Copyright (c) 2008-2021, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -29,15 +29,15 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_4\Framework;
-use Designink\WordPress\Framework\v1_0_4\Autoloader;
+use DesignInk\WordPress\Framework\v1_1_0\Framework;
+use DesignInk\WordPress\Framework\v1_1_0\Autoloader;
 
 global $DESIGNINK_FRAMEWORKS;
 
 /**
  * The Autoloader is really all we need to start calling things up, so fire it up if it hasn't been.
  */
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Autoloader', false ) ) {
+if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_0\Autoloader', false ) ) {
 	require_once ( plugin_dir_path( __FILE__ ) . 'includes/classes/class-autoloader.php' );
 	Autoloader::instance()->autoload_directory_recursive( __DIR__ . '/includes' );
 }
@@ -45,7 +45,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Autoloader', false )
 /**
  * Set global function for accessing Framework instances.
  * 
- * @return \Designink\WordPress\Framework\v1_0_4\Framework[] The Designink WordPress frameworks by version.
+ * @return \DesignInk\WordPress\Framework\v1_1_0\Framework[] The DesignInk WordPress frameworks by version.
  */
 if ( ! function_exists( 'designink_frameworks' ) ) {
 
@@ -61,13 +61,13 @@ if ( ! function_exists( 'designink_frameworks' ) ) {
 /**
  * Instantiate the current Framework version and add to the Frameworks list.
  */
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Framework', false ) ) {
+if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_0\Framework', false ) ) {
 	$DESIGNINK_FRAMEWORKS[ Framework::get_version() ] = Framework::instance();
 }
 
 /**
  * Initialize the shadow plugin
  */
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Designink_Framework_Shadow_Plugin', false ) ) {
+if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_0\DesignInk_Framework_Shadow_Plugin', false ) ) {
 	require_once( __DIR__ . '/designink-framework-shadow-plugin.php' );
 }

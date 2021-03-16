@@ -16,23 +16,23 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress/Framework
+ * @package   DesignInk/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC
+ * @copyright Copyright (c) 2008-2021, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_4;
+namespace DesignInk\WordPress\Framework\v1_1_0;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_4\Module;
+use DesignInk\WordPress\Framework\v1_1_0\Module;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Woocommerce', false ) ) {
+if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_0\WooCommerce', false ) ) {
 
 	/**
-	 * A class to manage the DesignInk Woocommerce solutions for WordPress.
+	 * This Module manages the WooCommerce solutions by DesignInk for WordPress.
 	 */
-	final class Woocommerce extends Module { }
+	final class WooCommerce extends Module { }
 
 }

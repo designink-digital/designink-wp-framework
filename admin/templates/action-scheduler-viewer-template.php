@@ -16,15 +16,16 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress/Framework
+ * @package   DesignInk/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC
+ * @copyright Copyright (c) 2008-2021, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_4\Action_Scheduler\Timer_Manager;
+use DesignInk\WordPress\Framework\v1_1_0\Action_Scheduler\Cron_Manager;
+use DesignInk\WordPress\Framework\v1_1_0\Action_Scheduler\Timer_Manager;
 
 $Timers = Timer_Manager::get_timers();
 $Now = new \DateTime( 'now', new \DateTimeZone( 'GMT' ) );
@@ -73,7 +74,13 @@ $Now = new \DateTime( 'now', new \DateTimeZone( 'GMT' ) );
 							<?php foreach ( $Timer->get_actions() as $Action ) : ?>
 
 								<?php if ( is_callable( $Action->action ) ) : ?>
-									<pre><?php echo implode( '::', $Action->action ); ?>()</pre>
+
+									<?php if ( is_array( $Action->action ) ) : ?>
+										<pre><?php echo implode( '::', $Action->action ); ?>()</pre>
+									<?php else : ?>
+										<pre><?php echo $Action->action; ?>()</pre>
+									<?php endif; ?>
+
 								<?php else : ?>
 									<pre class="uncallable-action" title="Uncallable Action"><?php echo implode( '::', $Action->action ); ?>()</pre>
 								<?php endif; ?>
@@ -87,7 +94,11 @@ $Now = new \DateTime( 'now', new \DateTimeZone( 'GMT' ) );
 			</tbody>
 		</table>
 
-		<div class="current-time">Current Time (GMT): <?php echo $Now->format( 'Y-m-d @ H:i:s' ); ?></div>
+		<div class="current-time">
+			<p>Next Cron Run: <?php echo ( new DateTime( sprintf( '@%s', wp_next_scheduled( Cron_Manager::WP_CRON_SCHEDULE_HOOK ) ) ) )->format( 'Y-m-d @ H:i:s' ); ?></p>
+			<p>Current Time: <?php echo $Now->format( 'Y-m-d @ H:i:s' ); ?></p>
+			<sup>*All times are in GMT</sup>
+		</div>
 
 	<?php endif; ?>
 

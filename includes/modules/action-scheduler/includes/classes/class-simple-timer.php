@@ -16,20 +16,20 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress/Framework
+ * @package   DesignInk/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC
+ * @copyright Copyright (c) 2008-2021, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_4\Action_Scheduler;
+namespace DesignInk\WordPress\Framework\v1_1_0\Action_Scheduler;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_4\Utility;
-use Designink\WordPress\Framework\v1_0_4\Designink_Framework_Shadow_Plugin;
+use DesignInk\WordPress\Framework\v1_1_0\DesignInk_Framework_Shadow_Plugin;
+use DesignInk\WordPress\Framework\v1_1_0\Utility;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Action_Scheduler\Simple_Timer', false ) ) {
+if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_0\Action_Scheduler\Simple_Timer', false ) ) {
 
 	/**
 	 * A Timer instance that bases it's run times off of even intervals from a specified start times. It can also return how many missed intervals a Timer may potentially have.
@@ -85,10 +85,17 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Action_Scheduler\Sim
 		 */
 		public function __construct( string $timer_id, array $options ) {
 			$inteval_correct = in_array( $options['interval'], array_keys( self::$interval_types ) );
+			$multiplier_negative = isset( $options['multiplier'] ) && intval( $options['multiplier'] ) < 0;
 
 			if ( ! $inteval_correct ) {
 				$types = implode( ',', array_keys( self::$interval_types ) );
 				$message = sprintf( "The provided interval is incorrect. (%s) expected, recieved: %s.", $types, $options['interval'] );
+				throw new \Exception( __( $message ) );
+				return;
+			}
+
+			if ( $multiplier_negative ) {
+				$message = sprintf( "The multiplier supplied to a Simple Timer must be a positive integer." );
 				throw new \Exception( __( $message ) );
 				return;
 			}
@@ -110,7 +117,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Action_Scheduler\Sim
 		 * @param string $group The name of the group the Timer will have in the form.
 		 */
 		final public static function print_form( string $group ) {
-			Designink_Framework_Shadow_Plugin::instance()->get_template( 'simple-timer-form-builder', array( 'group' => $group ) );
+			DesignInk_Framework_Shadow_Plugin::instance()->get_template( 'simple-timer-form-builder', array( 'group' => $group ) );
 		}
 
 		/**
@@ -122,10 +129,10 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Action_Scheduler\Sim
 			$last = $this->get_last_run();
 
 			if ( ! $last ) {
-				return new \DateTime( sprintf( '@%s', ( time() - 60 ) ), new \DateTimeZone( 'GMT' ) );
+				$last = new \DateTime( sprintf( '@%s', $this->timer_created ) );
 			}
 
-			$interval = ( int ) $this->multiplier * $this->get_interval_value();
+			$interval = intval( $this->multiplier * $this->get_interval_value() );
 			$last->add( new \DateInterval( sprintf( 'PT%sS', $interval ) ) );
 			return $last;
 		}
@@ -164,7 +171,7 @@ if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Action_Scheduler\Sim
 		 * The inherited abstract for printing Timer info.
 		 */
 		final public function print_info() {
-			Designink_Framework_Shadow_Plugin::instance()->get_template( 'simple-timer-print-info', array( 'Timer' => $this ) );
+			DesignInk_Framework_Shadow_Plugin::instance()->get_template( 'simple-timer-print-info', array( 'Timer' => $this ) );
 		}
 
 	}

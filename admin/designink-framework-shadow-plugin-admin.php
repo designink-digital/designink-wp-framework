@@ -16,24 +16,24 @@
  * versions in the future. If you wish to customize the plugin for your
  * needs please refer to https://designinkdigital.com
  *
- * @package   Designink/WordPress/Framework
+ * @package   DesignInk/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2020, DesignInk, LLC
+ * @copyright Copyright (c) 2008-2021, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace Designink\WordPress\Framework\v1_0_4;
+namespace DesignInk\WordPress\Framework\v1_1_0;
 
 defined( 'ABSPATH' ) or exit;
 
-use Designink\WordPress\Framework\v1_0_4\Plugin\Admin_Module;
+use DesignInk\WordPress\Framework\v1_1_0\Admin_Module;
 
-if ( ! class_exists( '\Designink\WordPress\Framework\v1_0_4\Designink_Framework_Shadow_Plugin_Admin', false ) ) {
+if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_0\DesignInk_Framework_Shadow_Plugin_Admin', false ) ) {
 
 	/**
 	 * The 'shadow' plugin for the framework that will control the loading of crucial modules.
 	 */
-	final class Designink_Framework_Shadow_Plugin_Admin extends Admin_Module {
+	final class DesignInk_Framework_Shadow_Plugin_Admin extends Admin_Module {
 
 		/**
 		 * Module entry point.
