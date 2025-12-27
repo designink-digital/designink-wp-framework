@@ -18,7 +18,7 @@
  *
  * @package   DesignInk/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2021, DesignInk, LLC
+ * @copyright Copyright (c) 2008-2026, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -104,7 +104,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Admin\Pages\Settings
 		/**
 		 * Register the section settings and add the section to the page.
 		 */
-		final private function register() {
+		private function register() {
 			// N.B. This is where the option name is registered in the database.
 			register_setting( $this->Settings_Page->page_option_group(), $this->get_section_option_name() );
 
@@ -119,7 +119,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Admin\Pages\Settings
 		/**
 		 * Load option data from the database and set the values of the inputs.
 		 */
-		final private function load_input_options() {
+		private function load_input_options() {
 			$options = $this->load_option();
 
 			foreach ( $this->inputs as $input ) {

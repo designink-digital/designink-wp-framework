@@ -18,7 +18,7 @@
  *
  * @package   DesignInk/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2021, DesignInk, LLC
+ * @copyright Copyright (c) 2008-2026, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -77,7 +77,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Action_Scheduler\Cro
 		/**
 		 * Unschedule the Action Scheduler cron if it is set and recreate it.
 		 */
-		final private static function reset_cron_timer() {
+		private static function reset_cron_timer() {
 			$schedule = wp_get_schedule( self::WP_CRON_SCHEDULE_HOOK );
 
 			if ( false !== $schedule ) {

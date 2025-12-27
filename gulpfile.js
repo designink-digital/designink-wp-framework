@@ -14,6 +14,12 @@ const compareVersions = require( 'compare-versions' );
 // Process requires
 const fs = require( 'fs' );
 
+
+/**
+ * Find and replace 
+ *
+ * @param {function} cb The Gulp callback to return to other tasks in the pipeline.
+ */
 function upgrade_version( cb ) {
 	const packageJSON = fs.readFileSync( 'package.json' );
 	const packageInfo = JSON.parse( packageJSON );

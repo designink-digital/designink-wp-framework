@@ -18,7 +18,7 @@
  *
  * @package   DesignInk/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2021, DesignInk, LLC
+ * @copyright Copyright (c) 2008-2026, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -54,7 +54,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Action_Scheduler', f
 		/**
 		 * Register the different types of timers with the Form Builder so it can print their forms.
 		 */
-		final private static function register_timer_forms() {
+		private static function register_timer_forms() {
 			Form_Builder::add_timer_class( Simple_Timer::class );
 			Form_Builder::add_timer_class( Interval_Timer::class );
 		}

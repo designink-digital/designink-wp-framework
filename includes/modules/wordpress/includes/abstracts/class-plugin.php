@@ -18,7 +18,7 @@
  *
  * @package   DesignInk/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2021, DesignInk, LLC
+ * @copyright Copyright (c) 2008-2026, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -159,7 +159,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Plugin', false ) ) {
 		 * because it may be cleaner to isolate all of the admin code to one area so we don't have to look for admin functionality in admin and non-admin modules. Admin extensions
 		 * should then only be available to root plugins.
 		 */
-		final private function maybe_init_admin() {
+		private function maybe_init_admin() {
 			$reflection = $this->get_class_reflection();
 			$file_path = sprintf( '%sadmin/%s-admin.php', plugin_dir_path( $reflection->getFileName() ), Utility::slugify( $reflection->getShortName() ) );
 
@@ -186,7 +186,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Plugin', false ) ) {
 		/**
 		 * Search for \DesignInk\WordPress\Framework\v1_1_1\Post_Type classes in the Plugin { static::$post_types_dir } and register them.
 		 */
-		final private function register_available_post_types() {
+		private function register_available_post_types() {
 			$reflection = $this->get_class_reflection();
 			$post_types_dir = sprintf( '%s%s/%s/', plugin_dir_path( $reflection->getFileName() ), static::$includes_dir, static::$post_types_dir );
 

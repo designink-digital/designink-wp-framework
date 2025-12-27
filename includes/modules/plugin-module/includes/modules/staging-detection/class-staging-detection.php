@@ -18,7 +18,7 @@
  *
  * @package   DesignInk/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2021, DesignInk, LLC
+ * @copyright Copyright (c) 2008-2026, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -59,7 +59,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Staging_Detection', 
 		/**
 		 * Determine if the host option is set and compare it to the current host. Sets the static indicator.
 		 */
-		final private static function check_site_url() {
+		private static function check_site_url() {
 			$site_host = parse_url( site_url(), PHP_URL_HOST );
 			$expected_host = get_option( self::OPTION_KEY );
 

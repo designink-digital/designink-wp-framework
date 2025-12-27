@@ -18,7 +18,7 @@
  *
  * @package   DesignInk/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2021, DesignInk, LLC
+ * @copyright Copyright (c) 2008-2026, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -172,7 +172,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Action_Scheduler\Tim
 		/**
 		 * Loop through the initial array of actions and load their instances.
 		 */
-		final private function create_action_instances() {
+		private function create_action_instances() {
 			foreach ( $this->actions_data as $action_id => $action ) {
 				$Action = new Action( $action_id, $action );
 				$this->Actions[] = $Action;
@@ -194,7 +194,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Action_Scheduler\Tim
 		/**
 		 * Run each action individually, set the last run time, and save the Timer.
 		 */
-		final private function run() {
+		private function run() {
 			do_action( sprintf( 'designink_action_scheduler_before_timer_run_%s', $this->id ), $this->id );
 
 			foreach ( $this->Actions as $Action ) {
@@ -335,7 +335,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Action_Scheduler\Tim
 		 * 
 		 * @return string The classs name of the Timer type, or an empty string if not found.
 		 */
-		final private static function timer_class_from_type( string $type ) {
+		private static function timer_class_from_type( string $type ) {
 			switch( $type ) {
 				case 'interval-timer':
 					return Interval_Timer::class;

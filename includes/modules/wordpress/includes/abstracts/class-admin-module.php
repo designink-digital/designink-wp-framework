@@ -18,7 +18,7 @@
  *
  * @package   DesignInk/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2021, DesignInk, LLC
+ * @copyright Copyright (c) 2008-2026, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -45,6 +45,11 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Admin_Module', false
 		protected static $includes = array( 'statics', 'abstractions', 'classes', 'meta-boxes' );
 
 		/**
+		 * @var array A list of screens which are initialized for the admin panel.
+		 */
+		protected $loaded_screens = array();
+
+		/**
 		 * A protected constructor to ensure only singleton instances exist.
 		 */
 		final protected function __construct() {
@@ -59,7 +64,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Admin_Module', false
 		/**
 		 * Search for \DesignInk\WordPress\Framework\v1_1_1\Post_Type classes in the Plugin { static::$post_types_dir } and register them.
 		 */
-		final private function register_available_screens() {
+		private function register_available_screens() {
 			$reflection = $this->get_class_reflection();
 			$screens_dir = sprintf( '%s%s/%s/', plugin_dir_path( $reflection->getFileName() ), static::$includes_dir, static::$screens_dir );
 

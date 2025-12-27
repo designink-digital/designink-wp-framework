@@ -18,7 +18,7 @@
  *
  * @package   DesignInk/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2021, DesignInk, LLC
+ * @copyright Copyright (c) 2008-2026, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -87,7 +87,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Admin\Pages\Settings
 		/**
 		 * Register this Settings Field and get the correct
 		 */
-		final private function register() {
+		private function register() {
 			add_settings_field(
 				$this->get_field_name(),
 				__( $this->label ),

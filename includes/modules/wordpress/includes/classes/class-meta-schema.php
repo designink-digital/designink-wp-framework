@@ -18,7 +18,7 @@
  *
  * @package   DesignInk/WordPress/Framework
  * @author    DesignInk Digital
- * @copyright Copyright (c) 2008-2021, DesignInk, LLC
+ * @copyright Copyright (c) 2008-2026, DesignInk, LLC
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -171,7 +171,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Meta_Schema', false 
 		 * 
 		 * @return \WP_Error|true Return TRUE if the array is valid, else return a WP Error with details.
 		 */
-		final private function validate_array( $data, $trace ) {
+		private function validate_array( $data, $trace ) {
 			if ( ! is_array( $data ) ) {
 				$message = sprintf( "Array expected for %s, %s recieved.", self::trace_string( $trace ), gettype( $data ) );
 				return new \WP_Error( __( $message ) );
@@ -238,7 +238,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Meta_Schema', false 
 		 * 
 		 * @return \WP_Error|true Return TRUE if the boolean is valid, else return a WP Error with details.
 		 */
-		final private function validate_boolean( $data, $trace ) {
+		private function validate_boolean( $data, $trace ) {
 
 			if ( is_bool( $data ) || $this->is_null_allow_null( $data ) ) {
 				return true;
@@ -257,7 +257,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Meta_Schema', false 
 		 * 
 		 * @return \WP_Error|true Return TRUE if the float is valid, else return a WP Error with details.
 		 */
-		final private function validate_float( $data, $trace ) {
+		private function validate_float( $data, $trace ) {
 
 			if ( is_float( $data ) || $this->is_null_allow_null( $data ) ) {
 				return true;
@@ -276,7 +276,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Meta_Schema', false 
 		 * 
 		 * @return \WP_Error|true Return TRUE if the integer is valid, else return a WP Error with details.
 		 */
-		final private function validate_integer( $data, $trace ) {
+		private function validate_integer( $data, $trace ) {
 			
 			if ( is_int( $data ) || $this->is_null_allow_null( $data ) ) {
 				return true;
@@ -295,7 +295,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Meta_Schema', false 
 		 * 
 		 * @return \WP_Error|true Return TRUE if the string is valid, else return a WP Error with details.
 		 */
-		final private function validate_string( $data, $trace ) {
+		private function validate_string( $data, $trace ) {
 			// If data type is not a string
 			if ( ! is_string( $data ) && ! $this->is_null_allow_null( $data ) ) {
 				$message = sprintf( 'String type expected for %s, found %s.', self::trace_string( $trace ), gettype( $data ) );
@@ -323,7 +323,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Meta_Schema', false 
 		 * 
 		 * @return boolean Return TRUE if the $data is NULL and the NULL value is allowed.
 		 */
-		final private function is_null_allow_null( $data ) {
+		private function is_null_allow_null( $data ) {
 
 			if ( array_key_exists( 'allow_null', $this->args ) ) {
 				return null === $data && true === $this->args['allow_null'];
@@ -365,7 +365,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_1\Meta_Schema', false 
 		 * 
 		 * @return string The readable form of the trace array.
 		 */
-		final private static function trace_string( array $trace ) {
+		private static function trace_string( array $trace ) {
 
 			if ( empty( $trace ) ) {
 				return 'meta';
