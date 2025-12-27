@@ -61,7 +61,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_2\Admin\Meta_Box', fal
 		 * @param int $post_id The ID of the Post being saved.
 		 * @param \WP_Post $Post A copy of the Post instance being saved.
 		 */
-		abstract protected static function save_post( int $post_id, \WP_Post $Post = null );
+		abstract protected static function save_post( int $post_id, ?\WP_Post $Post = null );
 
 		/**
 		 * A meta key to use when saving the Post Meta to the database. Should be lowercase and underscored.
@@ -127,7 +127,7 @@ if ( ! class_exists( '\DesignInk\WordPress\Framework\v1_1_2\Admin\Meta_Box', fal
 		 * @param int $post_id The ID of the Post being saved.
 		 * @param \WP_Post $Post A copy of the Post instance being saved.
 		 */
-		final public static function _save_post( int $post_id, \WP_Post $Post = null ) {
+		final public static function _save_post( int $post_id, ?\WP_Post $Post = null ) {
 
 			if ( ! isset( $_POST[ static::get_nonce() ] ) || ! wp_verify_nonce( $_POST[ static::get_nonce() ], self::get_nonce_action() ) ) {
 				return;
